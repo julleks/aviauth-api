@@ -72,6 +72,7 @@ can be implemented in future iterations.
 - [Trunk-based development](https://www.atlassian.com/continuous-delivery/continuous-integration/trunk-based-development)
 - [Open Source](https://opensource.org)
 - [REST](https://restfulapi.net) API
+- [PostgreSQL](https://www.postgresql.org)
 
 
 ### Non-Requirements
@@ -89,11 +90,6 @@ can be implemented in future iterations.
 
 - Blockchain usage
 - Data encryption
-- Docstring convention
-- Code format convention
-- Naming convention
-- Documentation
-- Database
 - Project structure
 - [Clean architecture](https://breadcrumbscollector.tech/python-the-clean-architecture-in-2021/)
 - Automatic changelog generation
