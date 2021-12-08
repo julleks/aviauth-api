@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "aviauth-api"
+version = "0.1.0"
+description = "Authentication microservice based on FastAPI"
+authors = ["Alex Rozum <rozumalex@gmail.com>"]
+license = "GNU General Public License v3.0"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.dev-dependencies]
+pre-commit = "^2.16.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+line_length = 79

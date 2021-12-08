@@ -11,12 +11,31 @@ git clone https://github.com/julleks/aviauth-api/
 ```
 
 
-Create virtual environment and install the requirements
+Install [pyenv](https://github.com/pyenv/pyenv/wiki#suggested-build-environment) and dependencies (macOS)
+```shell
+brew install openssl readline sqlite3 xz zlib
+
+curl https://pyenv.run | bash
+
+pyenv install 3.10.1
+```
+
+
+Install [poetry](https://python-poetry.org)
+```shell
+curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+
+source $HOME/.poetry/env
+```
+
 ```shell
 cd aviauth-api
-python3 -m venv .venv
-. .venv/bin/activate
-pip install -r requirements.txt
+
+pyenv local 3.10.1
+
+poetry install
+
+peotry shell
 ```
 
 Install pre-commit
