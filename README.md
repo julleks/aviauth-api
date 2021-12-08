@@ -87,3 +87,5 @@ can be implemented in future iterations.
 - Database
 - Project structure
 - Clean architecture
+- Automatic changelog generation
+- Automatic versioning / tagging
