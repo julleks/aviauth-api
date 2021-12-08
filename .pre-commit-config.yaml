@@ -1,15 +1,19 @@
 repos:
-  - repo: https://github.com/timothycrosley/isort
-    rev: 5.10.1
-    hooks:
-      - id: isort
-
-  - repo: https://github.com/ambv/black
-    rev: 21.12b0
-    hooks:
-      - id: black
-
-  - repo: https://gitlab.com/pycqa/flake8
-    rev: 4.0.1
-    hooks:
-      - id: flake8
+- hooks:
+  - id: isort
+  repo: https://github.com/timothycrosley/isort
+  rev: 5.10.1
+- hooks:
+  - id: black
+  repo: https://github.com/ambv/black
+  rev: 21.12b0
+- hooks:
+  - id: flake8
+  repo: https://gitlab.com/pycqa/flake8
+  rev: 4.0.1
+- hooks:
+  - id: commitizen
+    stages:
+    - commit-msg
+  repo: https://github.com/commitizen-tools/commitizen
+  rev: v2.20.0
