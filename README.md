@@ -69,7 +69,9 @@ can be implemented in future iterations.
 - Following [GitFlow workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
 - [Open Source](https://opensource.org)
 - [REST](https://restfulapi.net) API
-
+- [Semantic Versioning](https://semver.org/)
+- [Changelog Convention](https://keepachangelog.com/en/1.1.0/)
+- [Commit naming convention](https://cbea.ms/git-commit/)
 
 ### Non-Requirements
 
