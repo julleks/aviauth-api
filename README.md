@@ -82,7 +82,7 @@ can be implemented in future iterations.
 
 - [Semantic Versioning](documentation/conventions/semantic-versioning.md)
 - [Changelog Convention](documentation/conventions/changelog.md)
-- [Commit naming convention](documentation/conventions/commit-naming.md)
+- [Conventional Commits](documentation/conventions/conventional-commits.md)
 - [Atomic commits](documentation/conventions/atomic-commits.md)
 
 
