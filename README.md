@@ -72,7 +72,7 @@ can be implemented in future iterations.
 - [Semantic Versioning](https://semver.org/)
 - [Changelog Convention](https://keepachangelog.com/en/1.1.0/)
 - [Commit naming convention](documentation/conventions/commit-naming.md)
-- [Atomic commits](https://www.freshconsulting.com/atomic-commits/)
+- [Atomic commits](documentation/conventions/atomic-commits.md)
 
 
 ### Non-Requirements
