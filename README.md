@@ -85,3 +85,5 @@ can be implemented in future iterations.
 - Naming convention
 - Documentation
 - Database
+- Project structure
+- Clean architecture
