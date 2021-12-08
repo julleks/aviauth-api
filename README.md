@@ -95,6 +95,6 @@ can be implemented in future iterations.
 - Documentation
 - Database
 - Project structure
-- Clean architecture
+- [Clean architecture](https://breadcrumbscollector.tech/python-the-clean-architecture-in-2021/)
 - Automatic changelog generation
 - Automatic versioning / tagging
