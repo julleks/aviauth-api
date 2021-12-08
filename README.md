@@ -23,3 +23,8 @@ Install pre-commit
 ```shell
 pre-commit install
 ```
+
+
+### TODO:
+- install [bandit](https://bandit.readthedocs.io/en/latest/) for security issues check
+- investigate and add more [pre-commit hooks](https://github.com/pre-commit/pre-commit-hooks)
