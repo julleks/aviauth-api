@@ -1,5 +1,6 @@
 # [Commit naming convention](https://cbea.ms/git-commit/)
 
+
 ### Introduction: Why good commit messages matter
 
 A well-crafted Git commit message is the best way to communicate context

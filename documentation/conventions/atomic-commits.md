@@ -1,5 +1,6 @@
 # Developer Tip: Keep Your Commits [Atomic](https://www.freshconsulting.com/insights/blog/atomic-commits/)
 
+
 Source control is a developer’s best friend. The ability to share code
 with multiple developers, track changes, and easily roll back when problems
 arise is indispensable in this distributed world.

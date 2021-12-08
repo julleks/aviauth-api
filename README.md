@@ -1,4 +1,7 @@
 # aviauth-api
+![Version](https://shields.io/badge/version-0.1.0-blue)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/julleks/aviauth-api/blob/develop/LICENSE)
+
 Authentication microservice based on FastAPI
 
 
@@ -66,18 +69,22 @@ can be implemented in future iterations.
 - [GitHub actions](https://github.com/features/actions) as CI/CD tool
 - [AWS](http://aws.amazon.com) infrastructure
 - Managing infrastructure with [Terraform](https://www.terraform.io)
-- Following [GitFlow workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
+- [Trunk-based development](https://www.atlassian.com/continuous-delivery/continuous-integration/trunk-based-development)
 - [Open Source](https://opensource.org)
 - [REST](https://restfulapi.net) API
-- [Semantic Versioning](https://semver.org/)
-- [Changelog Convention](https://keepachangelog.com/en/1.1.0/)
-- [Commit naming convention](documentation/conventions/commit-naming.md)
-- [Atomic commits](documentation/conventions/atomic-commits.md)
 
 
 ### Non-Requirements
 
 - 
+
+### Conventions 
+
+- [Semantic Versioning](documentation/conventions/semantic-versioning.md)
+- [Changelog Convention](documentation/conventions/changelog.md)
+- [Commit naming convention](documentation/conventions/commit-naming.md)
+- [Atomic commits](documentation/conventions/atomic-commits.md)
+
 
 
 ### Under discussion
