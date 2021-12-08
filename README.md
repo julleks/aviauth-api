@@ -71,7 +71,9 @@ can be implemented in future iterations.
 - [REST](https://restfulapi.net) API
 - [Semantic Versioning](https://semver.org/)
 - [Changelog Convention](https://keepachangelog.com/en/1.1.0/)
-- [Commit naming convention](https://cbea.ms/git-commit/)
+- [Commit naming convention](documentation/conventions/commit-naming.md)
+- [Atomic commits](https://www.freshconsulting.com/atomic-commits/)
+
 
 ### Non-Requirements
 
