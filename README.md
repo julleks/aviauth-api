@@ -80,11 +80,9 @@ can be implemented in future iterations.
 
 ### Conventions 
 
-- [Semantic Versioning](documentation/conventions/semantic-versioning.md)
-- [Changelog Convention](documentation/conventions/changelog.md)
-- [Conventional Commits](documentation/conventions/conventional-commits.md)
-- [Atomic commits](documentation/conventions/atomic-commits.md)
-
+- [Semantic Versioning](https://semver.org/)
+- [Changelog](https://keepachangelog.com/en/1.1.0/)
+- [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 
 
 ### Under discussion
