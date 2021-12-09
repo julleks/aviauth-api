@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Install pre-commit hook: [check-builtin-literals](https://github.com/pre-commit/pre-commit-hooks#check-builtin-literals)
 * Install pre-commit hook: [check-docstring-first](https://github.com/pre-commit/pre-commit-hooks#check-docstring-first)
 * Install pre-commit hook: [check-yaml](https://github.com/pre-commit/pre-commit-hooks#check-yaml)
+* Install pre-commit hook: [check-toml](https://github.com/pre-commit/pre-commit-hooks#check-toml)
 * Install pre-commit hook: [detect-private-key](https://github.com/pre-commit/pre-commit-hooks#detect-private-key)
 * Install pre-commit hook: [end-of-file-fixer](https://github.com/pre-commit/pre-commit-hooks#end-of-file-fixer)
 
