@@ -7,7 +7,8 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = "aviauth-api"
     LATEST_VERSION: str = "0.1.0"
 
-    @validator("SQLALCHEMY_DATABASE_URI", pre=True)
+    @classmethod
+    @validator("SQLALCHEMY_DATABASE_URL", pre=True)
     def assemble_db_connection(cls, v: Optional[str], values: Dict[str, Any]) -> Any:
         if isinstance(v, str):
             return v
@@ -17,7 +18,7 @@ class Settings(BaseSettings):
             password=values.get("POSTGRES_PASSWORD"),
             host=values.get("POSTGRES_HOST"),
             port=values.get("POSTGRES_PORT"),
-            path=f"/{values.get('POSTGRES_DB') or ''}",
+            path=values.get('POSTGRES_DB'),
         )
 
     POSTGRES_HOST: str = os.getenv("POSTGRES_HOST", "127.0.0.1")
@@ -26,7 +27,7 @@ class Settings(BaseSettings):
     POSTGRES_PASSWORD: str = os.getenv("POSTGRES_PASSWORD", "password")
     POSTGRES_DB: str = os.getenv("POSTGRES_DB", "aviauth")
 
-    SQLALCHEMY_DATABASE_URI: Optional[PostgresDsn] = None
+    SQLALCHEMY_DATABASE_URL: Optional[PostgresDsn] = None
 
 
 settings = Settings()
