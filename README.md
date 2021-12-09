@@ -45,6 +45,16 @@ Install pre-commit
 pre-commit install
 ```
 
+Run the application
+```shell
+./start.sh
+```
+
+OpenAPI schema available at:
+```
+http://127.0.0.1:8000/docs
+http://127.0.0.1:8000/redoc
+```
 
 ### TODO:
 - install [bandit](https://bandit.readthedocs.io/en/latest/) for security issues check
