@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added 
 
 - Specify project requirements
+- Configure CI workflow to run tests with using versions of python and 
+  poetry on both Linux and macOS
 
 ## [0.1.0](https://github.com/julleks/aviauth-api/commits/0.1.0) - 2021-12-08
 
