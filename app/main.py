@@ -4,5 +4,5 @@ from app.core.config import settings
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
-    version=settings.CURRENT_VERSION,
+    version=settings.LATEST_VERSION,
 )

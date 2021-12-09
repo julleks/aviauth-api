@@ -5,7 +5,7 @@ import os
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "aviauth-api"
-    CURRENT_VERSION: str = "0.1.0"
+    LATEST_VERSION: str = "0.1.0"
 
     @validator("SQLALCHEMY_DATABASE_URI", pre=True)
     def assemble_db_connection(cls, v: Optional[str], values: Dict[str, Any]) -> Any:
