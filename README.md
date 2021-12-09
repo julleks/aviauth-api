@@ -1,6 +1,7 @@
 # aviauth-api
 [![Release Version](https://img.shields.io/github/v/release/julleks/aviauth-api.svg?sort=semver)](https://github.com/julleks/aviauth-api/releases)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/julleks/aviauth-api/blob/develop/LICENSE)
+[![CI](https://github.com/julleks/aviauth-api/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/julleks/aviauth-api/actions?query=branch%3A+master)
 
 Authentication microservice based on FastAPI
 
