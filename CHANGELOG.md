@@ -10,8 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added 
 
 - Specify project requirements
-- Configure CI workflow to run tests with using versions of python and 
-  poetry on both Linux and macOS
+- Configure CI workflow to run tests with [pytest](https://docs.pytest.org/en/6.2.x/) using project versions
+  of python and poetry on both Linux and macOS
+- Add a step to CI workflow to upload [coverage report](https://pytest-cov.readthedocs.io/en/latest/) to [codecov.io](https://app.codecov.io/)
 
 ## [0.1.0](https://github.com/julleks/aviauth-api/commits/0.1.0) - 2021-12-08
 
