@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Create base class for [SQLAlchemy](https://www.sqlalchemy.org) models
 * Create dependency function for API to open / close database connection
 * Create config file
+* Install SQLModel package(https://sqlmodel.tiangolo.com/features/)
 
 ## [0.1.0](https://github.com/julleks/aviauth-api/commits/0.1.0) - 2021-12-08
 
