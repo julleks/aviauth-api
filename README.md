@@ -54,7 +54,21 @@ OpenAPI schema available at:
 ```
 http://127.0.0.1:8000/docs
 http://127.0.0.1:8000/redoc
+http://127.0.0.1:8000/openapi.json
 ```
+
+### List of the environmental variables used in project:
+
+
+| Variable               | Default value     | Is required | Description                               |
+| ---------------------- | ----------------- |:-----------:| ----------------------------------------- |
+| POSTGRES_DB            | aviauth           | No          |                                           |
+| POSTGRES_HOST          | 127.0.0.1         | No          |                                           |
+| POSTGRES_PORT          | 5432              | No          |                                           |
+| POSTGRES_USER          |                   | Yes         |                                           |
+| POSTGRES_PASSWORD      |                   | Yes         |                                           |
+
+
 
 ### TODO:
 - install [bandit](https://bandit.readthedocs.io/en/latest/) for security issues check
