@@ -17,3 +17,11 @@ repos:
     - commit-msg
   repo: https://github.com/commitizen-tools/commitizen
   rev: v2.20.0
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.0.1
+  hooks:
+    - id: check-builtin-literals # Require literal syntax when initializing empty or zero Python builtin types
+    - id: check-docstring-first # Checks for a common error of placing code before the docstring.
+    - id: check-yaml # Attempts to load all yaml files to verify syntax
+    - id: detect-private-key # Checks for the existence of private keys
+    - id: end-of-file-fixer # Makes sure files end in a newline and only a newline
