@@ -1,6 +1,7 @@
-from pydantic import BaseSettings, PostgresDsn, validator
-from typing import Optional, Dict, Any
 import os
+from typing import Any, Dict, Optional
+
+from pydantic import BaseSettings, PostgresDsn, validator
 
 
 class Settings(BaseSettings):
@@ -18,7 +19,7 @@ class Settings(BaseSettings):
             password=values.get("POSTGRES_PASSWORD"),
             host=values.get("POSTGRES_HOST"),
             port=values.get("POSTGRES_PORT"),
-            path=values.get('POSTGRES_DB'),
+            path=values.get("POSTGRES_DB"),
         )
 
     POSTGRES_HOST: str = os.getenv("POSTGRES_HOST", "127.0.0.1")
