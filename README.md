@@ -77,6 +77,24 @@ http://127.0.0.1:8000/openapi.json
 
 # Hints & Tips
 
+### Commits
+
+[Conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) specification
+
+Common commit types:
+
+`feat:`
+`fix:`
+`build:`
+`chore:`
+`ci:`
+`docs:`
+`style:`
+`refactor:`
+`perf:`
+`test:`
+
+
 ###Alembic
 
 Initialize Alembic:
