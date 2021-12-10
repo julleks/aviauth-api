@@ -75,6 +75,27 @@ http://127.0.0.1:8000/openapi.json
 - investigate and add more [pre-commit hooks](https://github.com/pre-commit/pre-commit-hooks)
 
 
+# Hints & Tips
+
+###Alembic
+
+Initialize Alembic:
+```shell
+alembic init -t async migrations
+```
+
+Make migration:
+```shell
+alembic revision --autogenerate -m "migration massage"
+```
+
+Apply migration:
+```shell
+alembic upgrade head
+```
+
+
+
 # Overview
 
 This project provides authentication and authorization service for external applications.
