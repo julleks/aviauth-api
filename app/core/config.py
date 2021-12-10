@@ -34,7 +34,7 @@ class Settings(BaseSettings):
     POSTGRES_PASSWORD: str = os.getenv("POSTGRES_PASSWORD")
     POSTGRES_DB: str = os.getenv("POSTGRES_DB", "aviauth")
 
-    SQLALCHEMY_DATABASE_URL: Optional[PostgresDsn] = None
+    SQLALCHEMY_DATABASE_URL: Optional[AsyncPostgresDsn] = None
 
 
 settings = Settings()
