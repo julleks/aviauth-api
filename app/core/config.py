@@ -11,7 +11,7 @@ class AsyncPostgresDsn(PostgresDsn):
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "aviauth-api"
-    LATEST_VERSION: str = "0.1.0"
+    VERSION: str = "0.1.0"
 
     DEBUG: bool = os.getenv("DEBUG", False)
 

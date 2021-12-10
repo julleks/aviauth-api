@@ -8,7 +8,7 @@ from app.db.session import get_session
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
-    version=settings.LATEST_VERSION,
+    version=settings.VERSION,
 )
 
 app.include_router(api_router)
