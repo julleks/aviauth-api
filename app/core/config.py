@@ -30,8 +30,8 @@ class Settings(BaseSettings):
 
     POSTGRES_HOST: str = os.getenv("POSTGRES_HOST", "127.0.0.1")
     POSTGRES_PORT: str = os.getenv("POSTGRES_PORT", "5432")
-    POSTGRES_USER: str = os.getenv("POSTGRES_USER", "user")
-    POSTGRES_PASSWORD: str = os.getenv("POSTGRES_PASSWORD", "password")
+    POSTGRES_USER: str = os.getenv("POSTGRES_USER")
+    POSTGRES_PASSWORD: str = os.getenv("POSTGRES_PASSWORD")
     POSTGRES_DB: str = os.getenv("POSTGRES_DB", "aviauth")
 
     SQLALCHEMY_DATABASE_URL: Optional[PostgresDsn] = None
