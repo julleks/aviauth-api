@@ -20,10 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Install pre-commit hook: [detect-private-key](https://github.com/pre-commit/pre-commit-hooks#detect-private-key)
 * Install pre-commit hook: [end-of-file-fixer](https://github.com/pre-commit/pre-commit-hooks#end-of-file-fixer)
 * Create an entrypoint for [FastAPI application](https://fastapi.tiangolo.com)
-* Create base class for [SQLAlchemy](https://www.sqlalchemy.org) models
-* Create dependency function for API to open / close database connection
-* Create config file
-* Install SQLModel package(https://sqlmodel.tiangolo.com/features/)
+* Create dependency function to start database session
+* Create configuration class
+* Install [SQLModel](https://sqlmodel.tiangolo.com/features/) package
+* Setup [Alembic](https://alembic.sqlalchemy.org/en/latest/) for migrations
 
 ## [0.1.0](https://github.com/julleks/aviauth-api/commits/0.1.0) - 2021-12-08
 
