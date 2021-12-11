@@ -70,12 +70,6 @@ http://127.0.0.1:8000/openapi.json
 | DEBUG                  | False             | No          |                                           |
 
 
-
-### TODO:
-- install [bandit](https://bandit.readthedocs.io/en/latest/) for security issues check
-- investigate and add more [pre-commit hooks](https://github.com/pre-commit/pre-commit-hooks)
-
-
 # Hints & Tips
 
 ### Commits
