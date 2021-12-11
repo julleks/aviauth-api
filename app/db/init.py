@@ -17,7 +17,7 @@ logger = get_logger()
     after=after_log(logger),
 )
 async def init_db() -> None:
-    logger.info("Initializing db")
+    logger.info("Initializing DB")
 
     try:
         async with engine.begin() as conn:
@@ -27,4 +27,4 @@ async def init_db() -> None:
         logger.error(e)
         raise e
 
-    logger.info("db finished initializing")
+    logger.info("DB finished initializing")

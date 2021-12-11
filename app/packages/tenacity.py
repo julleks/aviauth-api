@@ -9,7 +9,7 @@ def before_log(logger: Logger) -> Callable[[RetryCallState], None]:
 
     def log_it(retry_state: RetryCallState) -> None:
         logger.info(
-            "Starting call",
+            "Starting a call",
             to=_utils.get_callback_name(retry_state.fn),
             attempt=retry_state.attempt_number,
         )
@@ -25,7 +25,7 @@ def after_log(
 
     def log_it(retry_state: RetryCallState) -> None:
         logger.warn(
-            "Finished call",
+            "Call finished",
             to=_utils.get_callback_name(retry_state.fn),
             after=sec_format % retry_state.seconds_since_start,
             attempt=retry_state.attempt_number,
