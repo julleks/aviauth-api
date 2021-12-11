@@ -107,6 +107,13 @@ Apply migration:
 alembic upgrade head
 ```
 
+### Sphinx
+
+Make documentation:
+```shell
+cd docs
+make html
+```
 
 
 # Overview

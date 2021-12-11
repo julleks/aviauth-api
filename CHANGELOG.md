@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Install [structlog](https://www.structlog.org/en/stable/)
 * Add a list of allowed [CORS origins](https://fastapi.tiangolo.com/tutorial/cors/)
 * Configure application for versioning
+* Integrate documentation with [readthedocs](https://docs.readthedocs.io/en/stable/tutorial/)
 
 ## [0.1.0](https://github.com/julleks/aviauth-api/commits/0.1.0) - 2021-12-08
 
