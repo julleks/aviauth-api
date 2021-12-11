@@ -5,10 +5,10 @@ from structlog import configure_once as configure_structlog
 from app.api import api_router
 from app.core.config import settings
 from app.db.init import init_db
+from app.packages.fastapi_versioning import VersionedFastAPI
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
-    version=settings.VERSION,
 )
 
 # Set all CORS enabled origins
@@ -29,3 +29,6 @@ async def on_startup():
 
 
 app.include_router(api_router)
+
+# TODO: fix displaying version at http://127.0.0.1:8000/docs
+app = VersionedFastAPI(app=app)

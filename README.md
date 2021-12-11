@@ -52,9 +52,9 @@ Run the application
 
 OpenAPI schema is available at:
 ```
-http://127.0.0.1:8000/docs
-http://127.0.0.1:8000/redoc
-http://127.0.0.1:8000/openapi.json
+http://127.0.0.1:8000/latest/docs
+http://127.0.0.1:8000/latest/redoc
+http://127.0.0.1:8000/latest/openapi.json
 ```
 
 ### List of the environmental variables used in project:
