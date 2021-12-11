@@ -3,20 +3,13 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to aviauth-api documentation!
+Welcome to aviauth-api's documentation!
 =====================================
 
-**aviauth-api** is a service for authentication and authorization.
+**aviauth-api** is a service for authentication and authorization build with python and FastAPI.
+
+Documentation is coming soon.
 
 .. toctree::
-   api/index.md
    :maxdepth: 2
    :caption: Contents:
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
