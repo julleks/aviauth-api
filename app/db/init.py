@@ -18,6 +18,7 @@ logger = get_logger()
 )
 async def init_db() -> None:
     logger.info("Initializing db")
+
     try:
         async with engine.begin() as conn:
             await conn.execute(select(1))
@@ -25,4 +26,5 @@ async def init_db() -> None:
     except Exception as e:
         logger.error(e)
         raise e
+
     logger.info("db finished initializing")
