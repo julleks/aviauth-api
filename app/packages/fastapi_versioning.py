@@ -1,7 +1,5 @@
 # Custom FastAPI versioning with major version in path
 # Based on https://github.com/DeanWay/fastapi-versioning
-# ToDo: separate to a package
-
 
 from collections import defaultdict
 from typing import Any, Callable, Dict, List, Tuple, Type, TypeVar, cast
@@ -28,8 +26,8 @@ def version_to_route(
     default_version: Tuple[int, int, int],
 ) -> Tuple[Tuple[int, int, int], APIRoute]:
     api_route = cast(APIRoute, route)
-    version = getattr(api_route.endpoint, "_api_version", default_version)
-    return version, api_route
+    api_version = getattr(api_route.endpoint, "_api_version", default_version)
+    return api_version, api_route
 
 
 def VersionedFastAPI(
@@ -44,6 +42,7 @@ def VersionedFastAPI(
         title=app.title,
         **kwargs,
     )
+
     version_route_mapping: Dict[int, List[APIRoute]] = defaultdict(list)
     version_routes = [version_to_route(route, default_version) for route in app.routes]
 
