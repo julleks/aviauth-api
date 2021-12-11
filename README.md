@@ -67,6 +67,7 @@ http://127.0.0.1:8000/openapi.json
 | POSTGRES_PORT          | 5432              | No          |                                           |
 | POSTGRES_USER          |                   | Yes         |                                           |
 | POSTGRES_PASSWORD      |                   | Yes         |                                           |
+| DEBUG                  | False             | No          |                                           |
 
 
 

@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Create configuration class
 * Install [SQLModel](https://sqlmodel.tiangolo.com/features/) package
 * Setup [Alembic](https://alembic.sqlalchemy.org/en/latest/) for migrations
+* Install [structlog](https://www.structlog.org/en/stable/)
 
 ## [0.1.0](https://github.com/julleks/aviauth-api/commits/0.1.0) - 2021-12-08
 
