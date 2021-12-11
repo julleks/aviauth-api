@@ -18,7 +18,7 @@ class Settings(BaseSettings):
 
     DEBUG: bool = os.getenv("DEBUG", False)
 
-    @validator("SQLALCHEMY_DATABASE_URL", pre=True)
+    @validator("DATABASE_URL", pre=True)
     def assemble_db_connection(cls, v: Optional[str], values: Dict[str, Any]) -> Any:
         if isinstance(v, str):
             return v
@@ -37,7 +37,7 @@ class Settings(BaseSettings):
     POSTGRES_PASSWORD: str = os.getenv("POSTGRES_PASSWORD")
     POSTGRES_DB: str = os.getenv("POSTGRES_DB", "aviauth")
 
-    SQLALCHEMY_DATABASE_URL: Optional[AsyncPostgresDsn] = None
+    DATABASE_URL: Optional[AsyncPostgresDsn] = None
 
 
 settings = Settings()
