@@ -1,41 +1,22 @@
-# Custom FastAPI versioning with major version in path
+# Custom FastAPI versioning
 # Based on https://github.com/DeanWay/fastapi-versioning
 
 from collections import defaultdict
-from typing import Any, Callable, Dict, List, Tuple, Type, TypeVar, cast
+from typing import Any, Dict, List, Tuple
 
 from fastapi import FastAPI
 from fastapi.routing import APIRoute
-from starlette.routing import BaseRoute
+from fastapi_versioning.versioning import version_to_route
 
-CallableT = TypeVar("CallableT", bound=Callable[..., Any])
-
-
-def version(
-    major: int, minor: int = 0, patch: int = 0
-) -> Callable[[CallableT], CallableT]:
-    def decorator(func: CallableT) -> CallableT:
-        func._api_version = (major, minor, patch)  # type: ignore
-        return func
-
-    return decorator
-
-
-def version_to_route(
-    route: BaseRoute,
-    default_version: Tuple[int, int, int],
-) -> Tuple[Tuple[int, int, int], APIRoute]:
-    api_route = cast(APIRoute, route)
-    api_version = getattr(api_route.endpoint, "_api_version", default_version)
-    return api_version, api_route
+from app.core.config import settings
 
 
 def VersionedFastAPI(
     app: FastAPI,
-    version_format: str = "{major}.{minor}.{patch}",
-    prefix_format: str = "/v{major}",
-    default_version: Tuple[int, int, int] = (0, 1, 0),
-    enable_latest: bool = True,
+    version_format: str = "{major}.{minor}",
+    prefix_format: str = "/v{major}_{minor}",
+    default_version: Tuple[int, int] = (1, 0),
+    enable_latest: bool = False,
     **kwargs: Any,
 ) -> FastAPI:
     parent_app = FastAPI(
@@ -43,34 +24,21 @@ def VersionedFastAPI(
         **kwargs,
     )
 
-    version_route_mapping: Dict[int, List[APIRoute]] = defaultdict(list)
+    version_route_mapping: Dict[Tuple[int, int], List[APIRoute]] = defaultdict(list)
+
     version_routes = [version_to_route(route, default_version) for route in app.routes]
 
-    # list of all versions found in the routes
-    versions = [route[0] for route in version_routes]
-
-    versions = sorted(versions, reverse=True)
-
-    versions_mapping = {}
-
-    for route_version in versions:
-        # map major with the latest minor and patch versions
-
-        major_version = route_version[0]
-
-        if not versions_mapping.get(major_version):
-            versions_mapping[major_version] = route_version
-
-    for route_version, route in version_routes:
-        # map routes according to major versions
-        version_route_mapping[versions_mapping.get(route_version[0])].append(route)
+    for version, route in version_routes:
+        version_route_mapping[version].append(route)
 
     unique_routes = {}
+    versions = sorted(version_route_mapping.keys())
 
-    for version in sorted(versions_mapping.values()):
-        major, minor, patch = version
+    for version in versions:
+        major, minor = version
+        prefix = prefix_format.format(major=major, minor=minor)
 
-        prefix = prefix_format.format(major=major)
+        major, minor, patch = getattr(settings, f"V{major}_VERSION")
         semver = version_format.format(major=major, minor=minor, patch=patch)
 
         versioned_app = FastAPI(
@@ -95,8 +63,7 @@ def VersionedFastAPI(
 
     if enable_latest:
         prefix = "/latest"
-
-        major, minor, patch = version
+        major, minor = version
 
         semver = version_format.format(major=major, minor=minor, patch=patch)
 
@@ -112,21 +79,3 @@ def VersionedFastAPI(
         parent_app.mount(prefix, versioned_app)
 
     return parent_app
-
-
-def versioned_api_route(
-    major: int = 1,
-    minor: int = 0,
-    patch: int = 0,
-    route_class: Type[APIRoute] = APIRoute,
-) -> Type[APIRoute]:
-    class VersionedAPIRoute(route_class):  # type: ignore
-        def __init__(self, *args: Any, **kwargs: Any) -> None:
-            super().__init__(*args, **kwargs)
-            try:
-                self.endpoint._api_version = (major, minor, patch)
-            except AttributeError:
-                # Support bound methods
-                self.endpoint.__func__._api_version = (major, minor)
-
-    return VersionedAPIRoute

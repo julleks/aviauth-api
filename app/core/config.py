@@ -12,6 +12,9 @@ class AsyncPostgresDsn(PostgresDsn):
 class Settings(BaseSettings):
     PROJECT_NAME: str = "aviauth-api"
 
+    V0_VERSION = (0, 1, 0)
+    LATEST_VERSION = V0_VERSION
+
     MAX_DB_CONNECTION_RETRIES = 5 * 60
     DB_CONNECTION_RETRY_WAIT_SECONDS = 5
 

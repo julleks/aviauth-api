@@ -31,4 +31,11 @@ async def on_startup():
 app.include_router(api_router)
 
 # TODO: fix displaying version at http://127.0.0.1:8000/docs
-app = VersionedFastAPI(app=app)
+app = VersionedFastAPI(
+    app=app,
+    default_version=(0, 1),
+    version_format="{major}.{minor}.{patch}",
+    prefix_format="/v{major}",
+    enable_latest=True,
+    version=".".join([str(v) for v in settings.LATEST_VERSION]),
+)
