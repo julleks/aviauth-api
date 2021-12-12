@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# NoSQL DataBase
+*.db
+
 # GetBrains folders
 .idea/
 

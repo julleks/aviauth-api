@@ -45,10 +45,75 @@ Install pre-commit
 pre-commit install
 ```
 
+Run the application
+```shell
+./start.sh
+```
 
-### TODO:
-- install [bandit](https://bandit.readthedocs.io/en/latest/) for security issues check
-- investigate and add more [pre-commit hooks](https://github.com/pre-commit/pre-commit-hooks)
+OpenAPI schema is available at:
+```
+http://127.0.0.1:8000/latest/docs
+http://127.0.0.1:8000/latest/redoc
+http://127.0.0.1:8000/latest/openapi.json
+```
+
+### List of the environmental variables used in project:
+
+
+| Variable               | Default value     | Is required | Description                               |
+| ---------------------- | ----------------- |:-----------:| ----------------------------------------- |
+| POSTGRES_DB            | aviauth           | No          |                                           |
+| POSTGRES_HOST          | 127.0.0.1         | No          |                                           |
+| POSTGRES_PORT          | 5432              | No          |                                           |
+| POSTGRES_USER          |                   | Yes         |                                           |
+| POSTGRES_PASSWORD      |                   | Yes         |                                           |
+| DEBUG                  | False             | No          |                                           |
+
+
+# Hints & Tips
+
+### Commits
+
+[Conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) specification
+
+Common commit types:
+
+`feat:`
+`fix:`
+`build:`
+`chore:`
+`ci:`
+`docs:`
+`style:`
+`refactor:`
+`perf:`
+`test:`
+
+
+###Alembic
+
+Initialize Alembic:
+```shell
+alembic init -t async migrations
+```
+
+Make migration:
+```shell
+alembic revision --autogenerate -m "migration massage"
+```
+
+Apply migration:
+```shell
+alembic upgrade head
+```
+
+### Sphinx
+
+Make documentation:
+```shell
+cd docs
+make html
+```
 
 
 # Overview

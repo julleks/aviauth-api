@@ -16,8 +16,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Install pre-commit hook: [check-builtin-literals](https://github.com/pre-commit/pre-commit-hooks#check-builtin-literals)
 * Install pre-commit hook: [check-docstring-first](https://github.com/pre-commit/pre-commit-hooks#check-docstring-first)
 * Install pre-commit hook: [check-yaml](https://github.com/pre-commit/pre-commit-hooks#check-yaml)
+* Install pre-commit hook: [check-toml](https://github.com/pre-commit/pre-commit-hooks#check-toml)
 * Install pre-commit hook: [detect-private-key](https://github.com/pre-commit/pre-commit-hooks#detect-private-key)
 * Install pre-commit hook: [end-of-file-fixer](https://github.com/pre-commit/pre-commit-hooks#end-of-file-fixer)
+* Create an entrypoint for [FastAPI application](https://fastapi.tiangolo.com)
+* Create dependency function to start database session
+* Create configuration class
+* Install [SQLModel](https://sqlmodel.tiangolo.com/features/) package
+* Setup [Alembic](https://alembic.sqlalchemy.org/en/latest/) for migrations
+* Install [structlog](https://www.structlog.org/en/stable/)
+* Add a list of allowed [CORS origins](https://fastapi.tiangolo.com/tutorial/cors/)
+* Configure application for versioning
+* Integrate documentation with [readthedocs](https://docs.readthedocs.io/en/stable/tutorial/)
+* Install pre-commit hook: [bandit](https://bandit.readthedocs.io/en/latest/)
 
 ## [0.1.0](https://github.com/julleks/aviauth-api/commits/0.1.0) - 2021-12-08
 
