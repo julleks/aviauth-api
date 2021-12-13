@@ -12,8 +12,16 @@ class AsyncPostgresDsn(PostgresDsn):
 class Settings(BaseSettings):
     PROJECT_NAME: str = "aviauth-api"
 
+    SECRET_KEY = os.getenv("SECRET_KEY", "dev")
+    HASH_ALGORITHM = "HS256"
+    ACCESS_TOKEN_LIFETIME = 30 * 60
+
     V0_VERSION = (0, 1, 0)
     LATEST_VERSION = V0_VERSION
+
+    OAUTH2_SCOPES = {
+        "user:read": "Read user data",
+    }
 
     MAX_DB_CONNECTION_RETRIES = 5 * 60
     DB_CONNECTION_RETRY_WAIT_SECONDS = 5
