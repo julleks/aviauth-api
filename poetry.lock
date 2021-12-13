@@ -179,7 +179,7 @@ python-versions = "*"
 
 [[package]]
 name = "fastapi"
-version = "0.70.0"
+version = "0.70.1"
 description = "FastAPI framework, high performance, easy to learn, fast to code, ready for production"
 category = "main"
 optional = false
@@ -725,7 +725,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "849bfc93777bff62f921b674f53860de62d6e9a82fc7673f3f33ac8e7c3e95fa"
+content-hash = "a9d42b0f5766f9ce1c1ab16dfca51a76b412f2e76b56a3b8afd70bb80b19bf57"
 
 [metadata.files]
 alembic = [
@@ -858,8 +858,8 @@ distlib = [
     {file = "distlib-0.3.4.zip", hash = "sha256:e4b58818180336dc9c529bfb9a0b58728ffc09ad92027a3f30b7cd91e3458579"},
 ]
 fastapi = [
-    {file = "fastapi-0.70.0-py3-none-any.whl", hash = "sha256:a36d5f2fad931aa3575c07a3472c784e81f3e664e3bb5c8b9c88d0ec1104f59c"},
-    {file = "fastapi-0.70.0.tar.gz", hash = "sha256:66da43cfe5185ea1df99552acffd201f1832c6b364e0f4136c0a99f933466ced"},
+    {file = "fastapi-0.70.1-py3-none-any.whl", hash = "sha256:5367226c7bcd7bfb2e17edaf225fd9a983095b1372281e9a3eb661336fb93748"},
+    {file = "fastapi-0.70.1.tar.gz", hash = "sha256:21d03979b5336375c66fa5d1f3126c6beca650d5d2166fbb78345a30d33c8d06"},
 ]
 fastapi-versioning = [
     {file = "fastapi_versioning-0.10.0-py3-none-any.whl", hash = "sha256:afe0ad7a56383b884c399341260bd3301b40e5a1cf9f6dc4211a349489087e1b"},
