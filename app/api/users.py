@@ -12,8 +12,9 @@ router = APIRouter()
 
 @version(0)
 @router.post("/register", response_model=Token)
-async def register(user: UserCreate, session: AsyncSession = Depends(get_session)):
-
+async def register(
+    user: UserCreate, session: AsyncSession = Depends(get_session)
+) -> Token:
     user = User(**user.dict())
     session.add(user)
     await session.commit()

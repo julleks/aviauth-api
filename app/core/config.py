@@ -20,7 +20,7 @@ class Settings(BaseSettings):
     LATEST_VERSION = V0_VERSION
 
     OAUTH2_SCOPES = {
-        "user:read": "Read user data",
+        "user:read": "Identity information.",
     }
 
     MAX_DB_CONNECTION_RETRIES = 5 * 60
@@ -39,6 +39,11 @@ class Settings(BaseSettings):
     # https://fastapi.tiangolo.com/tutorial/cors/
     # https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
     BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = []
+
+    # A list of domain names that should be allowed as hostnames.
+    # Wildcard domains such as *.example.com are supported for matching subdomains
+    # to allow any hostname either use allowed_hosts=["*"].
+    ALLOWED_HOSTS: List[str] = []
 
     @validator("DATABASE_URL", pre=True)
     def assemble_db_connection(cls, v: Optional[str], values: Dict[str, Any]) -> Any:

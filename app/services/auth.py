@@ -43,7 +43,7 @@ async def get_current_user(
     security_scopes: SecurityScopes,
     token: str = Depends(oauth2_scheme),
     session: AsyncSession = Depends(get_session),
-):
+) -> User:
     if security_scopes.scopes:
         authenticate_value = f'Bearer scope="{security_scopes.scope_str}"'
     else:
@@ -81,7 +81,7 @@ async def get_current_user(
 
 async def get_current_active_user(
     current_user: User = Security(get_current_user, scopes=["user:read"])
-):
+) -> User:
     if not current_user.is_active:
         raise InactiveUserException()
     return current_user
