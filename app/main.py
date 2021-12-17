@@ -22,6 +22,7 @@ async def on_startup():
     await init_db()
 
 
+# TODO: check why middlewares are not working
 app = VersionedFastAPI(
     app=app,
     default_version=(0, 1),

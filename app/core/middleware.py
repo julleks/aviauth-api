@@ -1,14 +1,14 @@
 from fastapi.middleware import Middleware
 from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
+from starlette.middleware.authentication import AuthenticationMiddleware
 from starlette.middleware.cors import CORSMiddleware
 
+from app.core.backends import oauth2_backend
 from app.core.config import settings
 
-middleware = []
-
-
-# TODO: Implement AuthenticationMiddleware
+# TODO: Implement AuthenticationMiddleware + AuthenticationBackend
+middleware = [Middleware(AuthenticationMiddleware, backend=oauth2_backend)]
 
 
 # TODO: Read about GZipMiddleware

@@ -3,7 +3,7 @@ from uuid import UUID, uuid4
 
 from sqlmodel import Field, SQLModel
 
-from app.services.security import get_password_hash, verify_password
+from app.core.security import get_password_hash, verify_password
 
 
 class UserBase(SQLModel):

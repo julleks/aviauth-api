@@ -1,17 +1,42 @@
 from datetime import datetime, timedelta
 from typing import List, Optional
+from uuid import UUID, uuid4
 
 from jose import JWTError, jwt
-from sqlmodel import SQLModel
+from sqlmodel import Field, SQLModel
 
 from app.core.config import settings
 from app.models.users import User
 
 
-class Token(SQLModel):
-    access_token: str
-    token_type: str
-    expires_in: timedelta
+class Application(SQLModel):
+    pass
+
+
+class Grant(SQLModel):
+    pass
+
+
+class AccessToken(SQLModel):
+    id: UUID
+    user: UUID = Field(foreign_key="user.id")
+    source_refresh_token: UUID = Field(
+        foreign_key="refresh_token.id", nullable=True
+    )  # TODO: set unique source_refresh_token + id
+    token: str  # TODO: set unique = True and check max length to be 255
+    token_type: str  # Choices: Bearer
+    id_token: UUID = Field(
+        foreign_key="id_token.id", nullable=True
+    )  # TODO: set unique id_token + id
+    application: UUID = Field(foreign_key="application.id", nullable=True)
+    expires_at: datetime  # TODO: use sqlmodel datetime with timezone field
+    scope: str  # TODO: use sqlmodel Text field
+    created_at: datetime  # TODO: use sqlmodel datetime with timezone field
+
+    def __init__(self, **kwargs):
+        self.id = uuid4()
+        self.created_at = datetime.now()  # TODO: pass a timezone
+        super().__init__(**kwargs)
 
     @classmethod
     def create(
@@ -35,7 +60,7 @@ class Token(SQLModel):
         )
 
         return cls(
-            access_token=encoded_jwt,
+            token=encoded_jwt,
             token_type="bearer",
             expires_in=expires_delta.seconds,
         )
@@ -43,7 +68,7 @@ class Token(SQLModel):
     def get_data(self):
         try:
             payload = jwt.decode(
-                self.access_token,
+                self.token,
                 settings.SECRET_KEY,
                 algorithms=[settings.HASH_ALGORITHM],
             )
@@ -63,3 +88,11 @@ class Token(SQLModel):
 class TokenData(SQLModel):
     username: Optional[str] = None
     scopes: List[str] = []
+
+
+class RefreshToken(SQLModel):
+    pass
+
+
+class IDToken(SQLModel):
+    pass
