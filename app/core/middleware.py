@@ -4,7 +4,7 @@ from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from starlette.middleware.authentication import AuthenticationMiddleware
 from starlette.middleware.cors import CORSMiddleware
 
-from app.core.backends import oauth2_backend
+from app.core.backend import oauth2_backend
 from app.core.config import settings
 
 # TODO: Implement AuthenticationMiddleware + AuthenticationBackend
