@@ -139,6 +139,11 @@ Apply migration:
 alembic upgrade head
 ```
 
+Downgrade 1 revision:
+```shell
+alembic downgrade -1
+```
+
 ### Security
 
 Generate random secret key:

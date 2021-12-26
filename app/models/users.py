@@ -1,34 +1,64 @@
 from typing import Optional
 from uuid import UUID, uuid4
 
-from sqlmodel import Field, SQLModel
+from sqlmodel import Field
 
 from app.core.security import get_password_hash, verify_password
+from app.packages.sqlmodel import SQLModel
 
 
 class UserBase(SQLModel):
-    username: str
-    email: Optional[str] = None
-    first_name: Optional[str] = None
-    last_name: Optional[str] = None
+    username: str = Field(max_length=64, sa_column_kwargs={"unique": True})
+    email: Optional[str] = Field(max_length=64, sa_column_kwargs={"unique": True})
+    first_name: Optional[str] = Field(max_length=64, default="", nullable=False)
+    last_name: Optional[str] = Field(max_length=64, default="", nullable=False)
+
+    @property
+    def is_authenticated(self) -> bool:
+        return True
+
+    @property
+    def display_name(self) -> str:
+        return self.username
+
+    @staticmethod
+    def get_password_hash(password):
+        return get_password_hash(password)
 
 
 class UserRead(UserBase):
-    id: UUID = Field(primary_key=True)
+    id: UUID
+
+
+class UnauthenticatedUser(UserRead):
+    pass
+
+    @property
+    def is_authenticated(self) -> bool:
+        return False
+
+    @property
+    def display_name(self) -> str:
+        return "Anonymous"
 
 
 class User(UserRead, table=True):
-    password: str = None
-    is_active: bool = True
+    id: UUID = Field(
+        primary_key=True,
+        default_factory=uuid4,
+        nullable=False,
+        sa_column_kwargs=dict(unique=True),
+    )
+    password: str = Field(max_length=255, index=False, nullable=True)
+    is_active: bool = Field(default=True, nullable=False)
 
-    def __init__(self, password: str, **kwargs) -> None:
-        user_id = uuid4()
-        password = get_password_hash(password)
-        super().__init__(id=user_id, password=password, **kwargs)
-
-    def check_password(self, password: str) -> bool:
+    def verify_password(self, password: str) -> bool:
         return verify_password(password, self.password)
 
 
 class UserCreate(UserBase):
     password: str
+
+    def __init__(self, password: str, **kwargs) -> None:
+        password = self.get_password_hash(password)
+        super().__init__(password=password, **kwargs)
