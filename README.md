@@ -40,9 +40,14 @@ poetry install
 peotry shell
 ```
 
-Install pre-commit
+Install pre-commit if you are going to make commits to repository
 ```shell
 pre-commit install
+```
+
+Set debug to `True` to disable HTTPSRedirectMiddleware locally:
+```shell
+export DEBUG=True
 ```
 
 Run the application
@@ -60,21 +65,24 @@ http://127.0.0.1:8000/latest/openapi.json
 ### List of the environmental variables used in project:
 
 
-| Variable               | Default value     | Is required | Description                               |
-| ---------------------- | ----------------- |:-----------:| ----------------------------------------- |
-| POSTGRES_DB            | aviauth           | No          |                                           |
-| POSTGRES_HOST          | 127.0.0.1         | No          |                                           |
-| POSTGRES_PORT          | 5432              | No          |                                           |
-| POSTGRES_USER          |                   | Yes         |                                           |
-| POSTGRES_PASSWORD      |                   | Yes         |                                           |
-| DEBUG                  | False             | No          |                                           |
+| Variable               | Default value     | Description                                                                         |
+|------------------------|-------------------|-------------------------------------------------------------------------------------|
+| POSTGRES_DB            | aviauth           |                                                                                     |
+| POSTGRES_HOST          | 127.0.0.1         |                                                                                     |
+| POSTGRES_PORT          | 5432              |                                                                                     |
+| POSTGRES_USER          |                   |                                                                                     |
+| POSTGRES_PASSWORD      |                   |                                                                                     |
+| DEBUG                  | False             | If set to True, logs to console SQL queries and disable HTTPSRedirectMiddleware.    |
+| SECRET_KEY             |                   |                                                                                     |
 
 
 # Hints & Tips
 
 ### Commits
 
-[Conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) specification
+This project is following [Conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) specification
+and [Trunk-based development](https://www.atlassian.com/continuous-delivery/continuous-integration/trunk-based-development)
+flow.
 
 Common commit types:
 
@@ -89,6 +97,35 @@ Common commit types:
 `perf:`
 `test:`
 
+Branch name patterns:
+
+`master`
+`feature/{feature_name}`
+`bugfix/{hotfix_name}`
+
+#### Before committing, ensure that you have:
+
+* installed pre-commit hook (`pre-commit install`)
+* included all the changes to the [CHANGELOG.md](CHANGELOG.md) under
+`Unreleased` section
+* created a branch according to the pattern described above (e.g.: `feature/{feature_name}`)
+* put a correct commit type according to presented above (e.g.: `feat: add new feature`)
+* put `!` after the commit type (e.g.: `feat!: and new breaking change`) and place
+`BRAKING CHANGE:` in the beginning of commit body (optional)
+if you are introducing breaking changes
+
+#### Before the release:
+
+* Set proper release version in the [CHANGELOG.md](CHANGELOG.md)
+* Ensure that [CHANGELOG.md](CHANGELOG.md) content is up-to-date
+* Set the release date in the [CHANGELOG.md](CHANGELOG.md)
+* Update `V{current_major}_VERSION` parameter in [config](app/core/config.py)
+according to the releasing one or create a new one if `BREAKING CHANGES`
+took place
+* Check that `LATEST_VERSION` is pointing to the correct major version parameter in
+[config](app/core/config.py)
+* After `master` branch is up-to-date, create a release on GitHub including the
+latest release notes
 
 ###Alembic
 
@@ -107,12 +144,16 @@ Apply migration:
 alembic upgrade head
 ```
 
-### Sphinx
-
-Make documentation:
+Downgrade 1 revision:
 ```shell
-cd docs
-make html
+alembic downgrade -1
+```
+
+### Security
+
+Generate random secret key:
+```shell
+openssl rand -hex 32
 ```
 
 
