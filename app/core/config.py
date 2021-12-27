@@ -36,7 +36,7 @@ class Settings(BaseSettings):
         "applications:write": "Write access to Applications list.",
     }
 
-    MAX_DB_CONNECTION_RETRIES = 5 * 60
+    MAX_DB_CONNECTION_RETRIES = 5 * 60  # time in seconds
     DB_CONNECTION_RETRY_WAIT_SECONDS = 5
 
     DEBUG: bool = os.getenv("DEBUG", False)

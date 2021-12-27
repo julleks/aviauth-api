@@ -9,9 +9,6 @@ from sqlmodel import SQLModel
 from app.core.config import settings
 from app.models import *
 
-# from app.db.base_class import Base
-
-
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
@@ -25,7 +22,6 @@ fileConfig(config.config_file_name)
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 target_metadata = SQLModel.metadata
-# target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
