@@ -26,7 +26,7 @@ class Settings(BaseSettings):
             return v
         return f"{values.get('API_URL')}/latest/{values.get('TOKEN_PATH')}"
 
-    V0_VERSION = (0, 1, 0)
+    V0_VERSION = (0, 2, 0)
     LATEST_VERSION = V0_VERSION
 
     OAUTH2_SCOPES = {
