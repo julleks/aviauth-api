@@ -1,10 +1,10 @@
-from logging import Logger
 from typing import Callable
 
+from structlog import BoundLogger
 from tenacity import RetryCallState, _utils
 
 
-def before_log(logger: Logger) -> Callable[[RetryCallState], None]:
+def before_log(logger: BoundLogger) -> Callable[[RetryCallState], None]:
     """Before call strategy that logs to structlog the attempt."""
 
     def log_it(retry_state: RetryCallState) -> None:
@@ -18,7 +18,7 @@ def before_log(logger: Logger) -> Callable[[RetryCallState], None]:
 
 
 def after_log(
-    logger: Logger,
+    logger: BoundLogger,
     sec_format: str = "%0.3f",
 ) -> Callable[[RetryCallState], None]:
     """After call strategy that logs to structlog the finished attempt."""
