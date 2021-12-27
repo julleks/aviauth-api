@@ -6,6 +6,8 @@ from sqlmodel import select
 from app.crud.base import CRUDBase, ModelType
 from app.models.applications import Application
 
+__all__ = ["applications"]
+
 
 class CRUDApplication(CRUDBase):
     async def get(self, db: AsyncSession, client_id: str) -> Optional[ModelType]:

@@ -1,4 +1,3 @@
-from datetime import datetime, timedelta
 from typing import Optional
 from uuid import UUID
 
@@ -6,6 +5,7 @@ from jose import jwt
 from sqlmodel import Field, SQLModel
 
 from app.core.config import settings
+from app.core.datetime import datetime, timedelta
 
 
 class RefreshToken(SQLModel, table=True):

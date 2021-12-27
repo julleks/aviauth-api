@@ -4,14 +4,15 @@ from fastapi.security import OAuth2PasswordRequestForm
 from fastapi_versioning import version
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.auth import create_access_token
-from app.core.backends import oauth2_scheme
+from app.core.auth import oauth2_scheme
 from app.core.config import settings
-from app.core.permissions import PermissionsDependency, ReadUserPermission
-from app.crud import users
+from app.core.dependencies import PermissionsDependency
+from app.crud.access_tokens import access_tokens
+from app.crud.users import users
 from app.db.session import get_session
 from app.models.access_tokens import AccessTokenRead
 from app.models.users import UserCreate, UserRead
+from app.permissions.users import ReadUserPermission
 
 router = APIRouter()
 
@@ -32,7 +33,7 @@ async def register(
     else:
         scope = form_data.scopes
 
-    return await create_access_token(
+    return await access_tokens.create_access_token(
         session, form_data.client_id, form_data.client_secret, user.id, scope
     )
 

@@ -3,11 +3,8 @@ from fastapi.requests import Request
 from fastapi_versioning import version
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.backends import oauth2_scheme
-from app.core.permissions import (
-    PermissionsDependency,
-    WriteApplicationPermission,
-)
+from app.core.auth import oauth2_scheme
+from app.core.dependencies import PermissionsDependency
 from app.crud import applications
 from app.db.session import get_session
 from app.models.applications import (
@@ -15,6 +12,7 @@ from app.models.applications import (
     ApplicationCreate,
     ApplicationRead,
 )
+from app.permissions.applications import WriteApplicationsPermission
 
 router = APIRouter()
 
@@ -23,7 +21,7 @@ router = APIRouter()
 @router.post(
     "/register",
     response_model=ApplicationRead,
-    dependencies=[Depends(PermissionsDependency([WriteApplicationPermission]))],
+    dependencies=[Depends(PermissionsDependency([WriteApplicationsPermission]))],
 )
 async def register(
     request: Request,

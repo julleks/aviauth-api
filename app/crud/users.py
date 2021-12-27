@@ -6,6 +6,8 @@ from sqlmodel import select
 from app.crud.base import CRUDBase, ModelType
 from app.models.users import User
 
+__all__ = ["users"]
+
 
 class CRUDUser(CRUDBase):
     async def get_by_username(

@@ -6,6 +6,13 @@ from sqlmodel import Field
 from app.core.security import get_password_hash, verify_password
 from app.packages.sqlmodel import SQLModel
 
+__all__ = [
+    "UserBase",
+    "UserRead",
+    "UserCreate",
+    "User",
+]
+
 
 class UserBase(SQLModel):
     username: str = Field(max_length=64, sa_column_kwargs={"unique": True})
@@ -28,18 +35,6 @@ class UserBase(SQLModel):
 
 class UserRead(UserBase):
     id: UUID
-
-
-class UnauthenticatedUser(UserRead):
-    pass
-
-    @property
-    def is_authenticated(self) -> bool:
-        return False
-
-    @property
-    def display_name(self) -> str:
-        return "Anonymous"
 
 
 class User(UserRead, table=True):
