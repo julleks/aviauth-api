@@ -45,6 +45,11 @@ Install pre-commit if you are going to make commits to repository
 pre-commit install
 ```
 
+Set debug to `True` to disable HTTPSRedirectMiddleware locally:
+```shell
+export DEBUG=True
+```
+
 Run the application
 ```shell
 ./start.sh
