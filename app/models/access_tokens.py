@@ -2,7 +2,7 @@ from typing import Optional
 from uuid import UUID
 
 from jose import jwt
-from sqlmodel import Field, SQLModel
+from sqlmodel import Column, DateTime, Field, Relationship, SQLModel
 
 from app.core.config import settings
 from app.core.datetime import datetime, timedelta
@@ -28,10 +28,11 @@ class AccessTokenBase(SQLModel):
 class AccessToken(AccessTokenBase, table=True):
     # TODO: Pass ondelete="CASCADE" to ForeignKey object when available
     user_id: UUID = Field(foreign_key="user.id")
+    user: SQLModel = Relationship(back_populates="access_tokens")
 
     scope: str = Field(index=False)
-    expires_at: datetime
-    created_at: datetime
+    expires_at: datetime = Field(sa_column=Column(DateTime(timezone=True)))
+    created_at: datetime = Field(sa_column=Column(DateTime(timezone=True)))
 
     # id_token: str = Field(
     #     foreign_key="id_token.token", nullable=True, sa_column_kwargs={"unique": True}
@@ -41,7 +42,13 @@ class AccessToken(AccessTokenBase, table=True):
         foreign_key="application.client_id", nullable=True
     )
 
-    is_active: bool = Field(default=True, nullable=False)
+    deactivated_at: datetime = Field(
+        sa_column=Column(DateTime(timezone=True)), nullable=True
+    )
+
+    @property
+    def is_active(self):
+        return bool((not self.deactivated_at) and (self.expires_at > datetime.now()))
 
     @property
     def scopes_list(self):
@@ -64,7 +71,7 @@ class AccessToken(AccessTokenBase, table=True):
         }
 
         self.access_token = jwt.encode(
-            payload, settings.SECRET_KEY, algorithm=settings.HASH_ALGORITHM
+            payload, settings.SECRET_KEY, algorithm=settings.TOKEN_HASH_ALGORITHM
         )
 
         super().__init__(**kwargs)

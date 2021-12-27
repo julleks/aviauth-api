@@ -3,7 +3,7 @@ from starlette.requests import Request
 
 from app.exceptions.base import NotEnoughPermissions
 
-__all__ = ["IsAuthenticated"]
+__all__ = ["IsAuthenticated", "NotAuthenticated"]
 
 
 class BasePermission:
@@ -31,6 +31,17 @@ class IsAuthenticated(BasePermission):
             return False
 
         if self.scope not in request.auth.scopes:
+            return False
+
+        return True
+
+
+class NotAuthenticated(BasePermission):
+    error_message = "Is authenticated"
+
+    def has_required_permissions(self, request: Request) -> bool:
+        if request.user.is_authenticated:
+            self.status_code = status.HTTP_401_UNAUTHORIZED
             return False
 
         return True

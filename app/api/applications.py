@@ -12,7 +12,7 @@ from app.models.applications import (
     ApplicationCreate,
     ApplicationRead,
 )
-from app.permissions.applications import WriteApplicationsPermission
+from app.permissions import WriteApplicationsPermission
 
 router = APIRouter()
 

@@ -1,7 +1,7 @@
 from typing import Optional
 from uuid import UUID
 
-from sqlmodel import Field
+from sqlmodel import Column, DateTime, Field
 
 from app.core.datetime import datetime
 from app.core.security import get_password_hash, verify_password
@@ -36,8 +36,10 @@ class Application(ApplicationBase, table=True):
     # client_type: str = Field(max_length=32, default="confidential")
     # TODO: add choices
     # authorization_grant_type: str = Field(max_length=32, default="")
-    created_at: datetime
-    updated_at: datetime = Field(nullable=True)
+    created_at: datetime = Field(sa_column=Column(DateTime(timezone=True)))
+    updated_at: datetime = Field(
+        sa_column=Column(DateTime(timezone=True)), nullable=True
+    )
     # name
     # skip authorization
     # algorithm

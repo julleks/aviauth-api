@@ -2,10 +2,11 @@ from typing import Optional
 from uuid import UUID
 
 from jose import jwt
-from sqlmodel import Field, SQLModel
+from sqlmodel import Column, DateTime, Field
 
 from app.core.config import settings
 from app.core.datetime import datetime, timedelta
+from app.packages.sqlmodel import SQLModel
 
 
 class RefreshToken(SQLModel, table=True):
@@ -27,13 +28,16 @@ class RefreshToken(SQLModel, table=True):
 
     access_token: str = Field(
         foreign_key="accesstoken.access_token",
-        # sa_column_kwargs=dict(unique=True),
         nullable=True,
     )
 
-    created_at: datetime = Field(nullable=True)
-    updated_at: Optional[datetime] = Field(nullable=True)
-    revoked_at: Optional[datetime] = Field(nullable=True)
+    created_at: datetime = Field(sa_column=Column(DateTime(timezone=True)))
+    updated_at: Optional[datetime] = Field(
+        sa_column=Column(DateTime(timezone=True)), nullable=True
+    )
+    revoked_at: Optional[datetime] = Field(
+        sa_column=Column(DateTime(timezone=True)), nullable=True
+    )
 
     def __init__(self, user_id, scope, **kwargs):
         self.created_at = datetime.now()
@@ -51,7 +55,7 @@ class RefreshToken(SQLModel, table=True):
         }
 
         self.token = jwt.encode(
-            payload, settings.SECRET_KEY, algorithm=settings.HASH_ALGORITHM
+            payload, settings.SECRET_KEY, algorithm=settings.TOKEN_HASH_ALGORITHM
         )
 
         super().__init__(**kwargs)

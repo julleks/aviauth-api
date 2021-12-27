@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any, List, Optional, Union
 from uuid import UUID
 
 from sqlalchemy import select
@@ -11,24 +11,29 @@ from app.crud.refresh_tokens import refresh_tokens
 from app.exceptions.applications import InvalidClientCredentials
 from app.models.access_tokens import AccessToken, AccessTokenRead
 from app.models.refresh_tokens import RefreshToken
+from app.models.users import User
 
 __all__ = ["access_tokens"]
 
 
 class CRUDAccessToken(CRUDBase):
-    async def get_active(
+    async def get_access_token_and_user(
         self, db: AsyncSession, access_token: Any
-    ) -> Optional[ModelType]:
+    ) -> Optional[List[Union[ModelType, User]]]:
         """Returns object by id."""
 
-        statement = select(self.model).where(
-            self.model.access_token == access_token,
-            AccessToken.expires_at > datetime.now(),
-            AccessToken.is_active,
+        statement = (
+            select(self.model, User)
+            .where(
+                self.model.access_token == access_token,
+                AccessToken.expires_at > datetime.now(),
+                AccessToken.deactivated_at == None,
+            )
+            .join(User, isouter=True)
         )
         results = await db.execute(statement)
 
-        return results.scalar_one_or_none()
+        return results.fetchone()
 
     async def create_access_token(
         self,

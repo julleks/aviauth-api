@@ -31,6 +31,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Implement API for authentication by [@rozumalex](https://github.com/rozumalex)
 * Implement API for user registration by [@rozumalex](https://github.com/rozumalex)
 * Implement API for retrieving user profile by [@rozumalex](https://github.com/rozumalex)
+* Implement basic API for applications registration by [@rozumalex](https://github.com/rozumalex)
+* Implement basic scope-based permissions by [@rozumalex](https://github.com/rozumalex)
 
 ## [0.1.0](https://github.com/julleks/aviauth-api/commits/0.1.0) - 2021-12-08
 

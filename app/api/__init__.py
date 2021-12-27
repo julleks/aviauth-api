@@ -8,15 +8,3 @@ api_router.include_router(auth.router, prefix="/auth", tags=["auth"])
 api_router.include_router(
     applications.router, prefix="/applications", tags=["applications"]
 )
-
-
-# Endpoints:
-# /users/register
-# /users/profile
-# /users/profile/tokens/<id>/revoke
-# /users/profile/access-history
-# /auth/token
-# /auth/refresh
-# /auth/applications or /auth/applications/register
-# /auth/applications -> list of user's applications
-# /auth/applications/<id> -> application details

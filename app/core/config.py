@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = "aviauth-api"
 
     SECRET_KEY = os.getenv("SECRET_KEY", "dev")
-    HASH_ALGORITHM = "HS256"
+    TOKEN_HASH_ALGORITHM = "HS256"
     ACCESS_TOKEN_LIFETIME = 30 * 60
     REFRESH_TOKEN_LIFETIME = 10 * 60 * 60
     API_URL = "http://localhost:8000"

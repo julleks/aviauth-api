@@ -1,8 +1,9 @@
-from typing import Optional
+from typing import List, Optional
 from uuid import UUID, uuid4
 
-from sqlmodel import Field
+from sqlmodel import Column, DateTime, Field, Relationship
 
+from app.core.datetime import datetime
 from app.core.security import get_password_hash, verify_password
 from app.packages.sqlmodel import SQLModel
 
@@ -45,7 +46,15 @@ class User(UserRead, table=True):
         sa_column_kwargs=dict(unique=True),
     )
     password: str = Field(max_length=255, index=False, nullable=True)
-    is_active: bool = Field(default=True, nullable=False)
+    registered_at: datetime = Field(sa_column=Column(DateTime(timezone=True)))
+    deactivated_at: datetime = Field(
+        sa_column=Column(DateTime(timezone=True)), nullable=False
+    )
+    access_tokens: List[SQLModel] = Relationship(back_populates="user")
+
+    @property
+    def is_active(self) -> bool:
+        return bool(not self.deactivated_at)
 
     def verify_password(self, password: str) -> bool:
         return verify_password(password, self.password)

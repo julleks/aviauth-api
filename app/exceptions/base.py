@@ -15,6 +15,6 @@ class NotEnoughPermissions(HTTPException):
         authenticate_value: str = "Bearer",
     ) -> None:
         if not headers:
-            headers = ({"WWW-Authenticate": authenticate_value},)
+            headers = {"WWW-Authenticate": authenticate_value}
 
         super().__init__(status_code=status_code, detail=detail, headers=headers)

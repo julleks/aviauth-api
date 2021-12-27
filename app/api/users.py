@@ -7,18 +7,21 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.auth import oauth2_scheme
 from app.core.config import settings
 from app.core.dependencies import PermissionsDependency
-from app.crud.access_tokens import access_tokens
-from app.crud.users import users
+from app.crud import access_tokens, users
 from app.db.session import get_session
 from app.models.access_tokens import AccessTokenRead
 from app.models.users import UserCreate, UserRead
-from app.permissions.users import ReadUserPermission
+from app.permissions import NotAuthenticated, ReadUserPermission
 
 router = APIRouter()
 
 
 @version(0)
-@router.post("/register", response_model=AccessTokenRead)
+@router.post(
+    "/register",
+    response_model=AccessTokenRead,
+    dependencies=[Depends(PermissionsDependency([NotAuthenticated]))],
+)
 async def register(
     form_data: OAuth2PasswordRequestForm = Depends(),
     session: AsyncSession = Depends(get_session),
@@ -26,7 +29,6 @@ async def register(
     user = await users.create(
         session, UserCreate(username=form_data.username, password=form_data.password)
     )
-    user = await users.create(session, user)
 
     if not form_data.scopes:
         scope = " ".join(settings.OAUTH2_SCOPES.keys())

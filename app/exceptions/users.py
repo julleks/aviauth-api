@@ -1,12 +1,10 @@
-from typing import Dict, Optional
-
 from fastapi import HTTPException
 from starlette import status
 
-__all__ = ["InactiveUserException"]
+__all__ = ["InactiveUser", "InvalidUserCredentials"]
 
 
-class InactiveUserException(HTTPException):
+class InactiveUser(HTTPException):
     def __init__(
         self,
         status_code: int = status.HTTP_400_BAD_REQUEST,
@@ -21,11 +19,6 @@ class InvalidUserCredentials(HTTPException):
         self,
         status_code: int = status.HTTP_401_UNAUTHORIZED,
         detail: str = "Invalid user credentials",
-        headers: Optional[Dict[str, str]] = None,
-        authenticate_value: str = "Bearer",
+        **kwargs,
     ) -> None:
-
-        if not headers:
-            headers = ({"WWW-Authenticate": authenticate_value},)
-
-        super().__init__(status_code=status_code, detail=detail, headers=headers)
+        super().__init__(status_code=status_code, detail=detail, **kwargs)

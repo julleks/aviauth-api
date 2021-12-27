@@ -4,7 +4,7 @@ from fastapi.security.utils import get_authorization_scheme_param
 from starlette.authentication import AuthCredentials
 from starlette.requests import HTTPConnection
 
-from app.crud import access_tokens, users
+from app.crud import access_tokens
 from app.db.session import async_session
 from app.models.users import UserRead
 
@@ -30,14 +30,12 @@ class OAuthBackend:
             return
 
         async with async_session() as session:
-            access_token = await access_tokens.get_active(session, access_token)
+            access_token, user = await access_tokens.get_access_token_and_user(
+                session, access_token
+            )
 
-        if not access_token:
+        if not (access_token or user):
             return
-
-        # TODO: Add backwards relation to user from access token
-        async with async_session() as session:
-            user = await users.get(session, access_token.user_id)
 
         return AuthCredentials(scopes=access_token.scopes_list), UserRead(**user.dict())
 
