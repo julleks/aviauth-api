@@ -27,7 +27,7 @@ jobs:
           DOCUSAURUS_PATH: "docs"
       - uses: chetan/invalidate-cloudfront-action@v2
         env:
-          DISTRIBUTION: ${{ DISTRIBUTION }}
+          DISTRIBUTION: ${{ secrets.DISTRIBUTION }}
           PATHS: "/"
           AWS_REGION: "eu-west-1"
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
