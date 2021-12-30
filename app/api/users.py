@@ -1,14 +1,15 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, status
 from fastapi.requests import Request
-from fastapi.security import OAuth2PasswordRequestForm
 from fastapi_versioning import version
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.auth import oauth2_scheme
+from app.core.auth import OAuth2EmailPasswordRequestForm, oauth2_scheme
 from app.core.config import settings
 from app.core.dependencies import PermissionsDependency
 from app.crud import access_tokens, users
 from app.db.session import get_session
+from app.exceptions import EmailAlreadyExists
 from app.models.access_tokens import AccessTokenRead
 from app.models.users import UserCreate, UserRead
 from app.permissions import NotAuthenticated, ReadUserPermission
@@ -20,15 +21,20 @@ router = APIRouter()
 @router.post(
     "/register",
     response_model=AccessTokenRead,
+    status_code=status.HTTP_201_CREATED,
     dependencies=[Depends(PermissionsDependency([NotAuthenticated]))],
 )
 async def register(
-    form_data: OAuth2PasswordRequestForm = Depends(),
+    form_data: OAuth2EmailPasswordRequestForm = Depends(),
     session: AsyncSession = Depends(get_session),
 ) -> AccessTokenRead:
-    user = await users.create(
-        session, UserCreate(username=form_data.username, password=form_data.password)
-    )
+
+    try:
+        user = await users.create(
+            session, UserCreate(email=form_data.email, password=form_data.password)
+        )
+    except IntegrityError:
+        raise EmailAlreadyExists
 
     if not form_data.scopes:
         scope = " ".join(settings.OAUTH2_SCOPES.keys())
@@ -49,6 +55,5 @@ async def register(
 async def get_profile(
     request: Request,
     token: str = Depends(oauth2_scheme),
-    session: AsyncSession = Depends(get_session),
 ) -> UserRead:
     return request.user

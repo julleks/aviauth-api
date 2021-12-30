@@ -28,7 +28,7 @@ class AccessTokenBase(SQLModel):
 class AccessToken(AccessTokenBase, table=True):
     # TODO: Pass ondelete="CASCADE" to ForeignKey object when available
     user_id: UUID = Field(foreign_key="user.id")
-    user: SQLModel = Relationship(back_populates="access_tokens")
+    user: "User" = Relationship(back_populates="access_tokens")
 
     scope: str = Field(index=False)
     expires_at: datetime = Field(sa_column=Column(DateTime(timezone=True)))

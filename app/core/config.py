@@ -31,9 +31,12 @@ class Settings(BaseSettings):
 
     OAUTH2_SCOPES = {
         "user:read": "Read access to Identity information.",
-        "user:write": "Write access to Identity information.",
+        "user:update": "Write access to Identity information.",
+        "user:full": "Full access to Identity information.",
         "applications:read": "Read access to Applications list.",
-        "applications:write": "Write access to Applications list.",
+        "applications:create": "Create access to Applications list.",
+        "applications:update": "Update access to Applications list.",
+        "applications:full": "Full access to Applications list.",
     }
 
     MAX_DB_CONNECTION_RETRIES = 5 * 60  # time in seconds

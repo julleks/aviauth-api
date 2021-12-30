@@ -2,5 +2,6 @@
 max-complexity = 15
 max-line-length = 88
 per-file-ignores =
-    *migrations/versions/*, __init__.py, env.py: F401, F403,
-    *crud/*: E711
+    */migrations/versions/*, __init__.py, env.py: F401, F403,
+    */crud/*: E711,
+    */models/*: F821

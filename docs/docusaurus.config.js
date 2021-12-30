@@ -77,6 +77,14 @@ const config = {
                 to: '/latest/intro',
               },
               {
+                label: 'Swagger',
+                to: 'https://api.aviauth.com/latest/docs/',
+              },
+              {
+                label: 'ReDoc',
+                to: 'https://api.aviauth.com/latest/redoc/',
+              },
+              {
                 label: 'aviauth-microservice',
                 href: 'https://microservice.aviauth.com',
               },
