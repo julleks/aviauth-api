@@ -6,7 +6,7 @@ __pycache__/
 # NoSQL DataBase
 *.db
 
-# GetBrains folders
+# JetBrains folders
 .idea/
 
 # C extensions
