@@ -20,7 +20,7 @@ https://api.aviauth.com/latest/auth/token/
   "email": "johndoe@example.com",
   "password": "tss!its-a-secret",
   "scope": "user:full",
-  "client_id": "super-secret-id",
+  "client_id": "super-secret-client-id",
   "client_secret": "and-even-more-secret-secret",
 }
 ```
@@ -32,7 +32,7 @@ curl -X 'POST' \
   'https://api.aviauth.com/latest/auth/token' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/x-www-form-urlencoded' \
-  -d 'grant_type=password&username=johndoe@example.com&password=tss!its-a-secret&scope=user%3Afull&client_id=super-secret-id&client_secret=and-even-more-secret-secret'
+  -d 'grant_type=password&username=johndoe@example.com&password=tss!its-a-secret&scope=user%3Afull&client_id=super-secret-client-id&client_secret=and-even-more-secret-secret'
 ```
 
 ### Response

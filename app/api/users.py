@@ -37,9 +37,11 @@ async def register(
         raise EmailAlreadyExists
 
     if not form_data.scopes:
-        scope = " ".join(settings.OAUTH2_SCOPES.keys())
+        scopes = settings.OAUTH2_SCOPES.keys()
     else:
-        scope = form_data.scopes
+        scopes = form_data.scopes
+
+    scope = " ".join(scopes)
 
     return await access_tokens.create_access_token(
         session, form_data.client_id, form_data.client_secret, user.id, scope

@@ -20,7 +20,7 @@ class AccessTokenBase(SQLModel):
     )
     token_type: str = Field(default="bearer", nullable=False)
 
-    refresh_token: Optional[str] = Field(
+    source_refresh_token: Optional[str] = Field(
         foreign_key="refreshtoken.token", nullable=True
     )
 
@@ -54,11 +54,12 @@ class AccessToken(AccessTokenBase, table=True):
     def scopes_list(self):
         return self.scope.split(" ")
 
-    def __init__(self, user_id, scope, **kwargs):
+    def __init__(self, user_id, scope, application_id, **kwargs):
         self.created_at = datetime.now()
 
         self.user_id = user_id
         self.scope = scope
+        self.application_id = application_id
 
         self.expires_at = self.created_at + timedelta(
             seconds=settings.ACCESS_TOKEN_LIFETIME
@@ -66,8 +67,14 @@ class AccessToken(AccessTokenBase, table=True):
 
         payload = {
             "sub": str(user_id),
-            "scopes": self.scopes_list,
+            "scope": self.scope,
             "exp": self.expires_at,
+            "iss": settings.API_URL,
+            "aud": self.application_id,
+            "iat": self.created_at,
+            # TODO: resolve according to
+            #  https://datatracker.ietf.org/doc/html/draft-bertocci-oauth-access-token-jwt-00#section-2.2.2
+            # "auth_time": self.refresh_token.created_at,
         }
 
         self.access_token = jwt.encode(

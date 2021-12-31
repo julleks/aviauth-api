@@ -40,10 +40,11 @@ class RefreshToken(SQLModel, table=True):
         sa_column=Column(DateTime(timezone=True)), nullable=True
     )
 
-    def __init__(self, user_id, scope, **kwargs):
+    def __init__(self, user_id, scope, application_id, **kwargs):
         self.created_at = datetime.now()
 
         self.user_id = user_id
+        self.application_id = application_id
 
         payload = {
             "exp": self.created_at + timedelta(seconds=settings.REFRESH_TOKEN_LIFETIME),

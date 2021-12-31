@@ -20,7 +20,7 @@ https://api.aviauth.com/latest/users/register/
   "email": "johndoe@example.com",
   "password": "tss!its-a-secret",
   "scope": "",
-  "client_id": "super-secret-id",
+  "client_id": "super-secret-client-id",
   "client_secret": "and-even-more-secret-secret",
 }
 ```
@@ -68,3 +68,30 @@ curl -X 'POST' \
 :::
 
 Will be raised in case `client_id` and `client_secret` are not valid.
+
+
+### What do we keep underneath
+
+:::info access_token
+```json
+{
+  "sub": "dda1757c-1947-490b-8cb3-b3295ae5366e",
+  "scope": "user:read user:update user:full applications:read applications:create applications:update applications:full",
+  "exp": 1640939869
+}
+```
+:::
+
+:::info refresh_token
+```json
+{
+  "exp": 1640975054,
+  "iat": 1640939054,
+  "scope": "user:read user:update user:full applications:read applications:create applications:update applications:full",
+  "sub": "54648e29-5e6c-4fc8-b4a6-d514acb98c59",
+  "aud": ["https://api.aviauth.com/latest/auth/token"],
+  "iss": "https://api.aviauth.com",
+  "azp": "super-secret-client-id"
+}
+```
+:::

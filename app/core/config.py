@@ -12,11 +12,11 @@ class AsyncPostgresDsn(PostgresDsn):
 class Settings(BaseSettings):
     PROJECT_NAME: str = "aviauth-api"
 
-    SECRET_KEY = os.getenv("SECRET_KEY", "dev")
-    TOKEN_HASH_ALGORITHM = "HS256"
-    ACCESS_TOKEN_LIFETIME = 30 * 60
-    REFRESH_TOKEN_LIFETIME = 10 * 60 * 60
-    API_URL = "http://localhost:8000"
+    SECRET_KEY: str = os.getenv("SECRET_KEY", "dev")
+    TOKEN_HASH_ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_LIFETIME: int = 30 * 60
+    REFRESH_TOKEN_LIFETIME: int = 10 * 60 * 60
+    API_URL: str = "http://localhost:8000"
     TOKEN_PATH: str = "auth/token"
     TOKEN_URL: str = None
 
