@@ -17,5 +17,13 @@ class CRUDUser(CRUDBase):
 
         return results.scalar_one_or_none()
 
+    async def verify_email(self, db: AsyncSession, user: User) -> Optional[ModelType]:
+        user.verify_email()
+
+        db.add(user)
+        await db.flush()
+
+        return user
+
 
 users = CRUDUser(User)

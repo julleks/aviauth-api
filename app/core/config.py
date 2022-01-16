@@ -1,7 +1,10 @@
 import os
+from functools import lru_cache
 from typing import Any, Dict, List, Optional, Union
 
 from pydantic import AnyHttpUrl, BaseSettings, PostgresDsn, validator
+
+__all__ = ["settings", "get_settings"]
 
 
 class AsyncPostgresDsn(PostgresDsn):
@@ -9,27 +12,46 @@ class AsyncPostgresDsn(PostgresDsn):
     allowed_schemes.add("postgresql+asyncpg")
 
 
+class SendgridSettings:
+    API_KEY = os.getenv("SENDGRID_API_KEY")
+    REGISTRATION_TPL = "d-977239e8c4bc4164800a05976bdfd1ba"
+
+
+class EmailSettings:
+    NO_REPLY_EMAIL = "no-reply@julleks.com"
+    NO_REPLY_NAME = "Aviauth"
+
+
 class Settings(BaseSettings):
     PROJECT_NAME: str = "aviauth-api"
+    V0_VERSION = (0, 2, 0)
+    LATEST_VERSION = V0_VERSION
 
-    SECRET_KEY: str = os.getenv("SECRET_KEY", "dev")
+    SECRET_KEY: str = os.getenv(
+        "SECRET_KEY", "41bfc53f79978dc3c758b5948aa5a2b9848c96eb485333e3003e1f7ea1c52296"
+    )
+
     TOKEN_HASH_ALGORITHM: str = "HS256"
     ACCESS_TOKEN_LIFETIME: int = 30 * 60
     REFRESH_TOKEN_LIFETIME: int = 10 * 60 * 60
-    API_URL: str = "http://localhost:8000"
+
+    API_URL: str = "http://localhost:8000/latest"
     TOKEN_PATH: str = "auth/token"
+    AUTHORIZATION_PATH: str = "auth/token"
     TOKEN_URL: str = None
 
     @validator("TOKEN_URL", pre=True)
     def token_url(cls, v: Optional[str], values: Dict[str, Any]) -> str:
         if v:
             return v
-        return f"{values.get('API_URL')}/latest/{values.get('TOKEN_PATH')}"
-
-    V0_VERSION = (0, 2, 0)
-    LATEST_VERSION = V0_VERSION
+        return f"{values.get('API_URL')}/{values.get('TOKEN_PATH')}"
 
     OAUTH2_SCOPES = {
+        "offline_access": "This scope requests an OAuth 2.0 Refresh Token be issued"
+        "that can be used to obtain an Access Token that grants access"
+        "to the End-User's UserInfo Endpoint even when the End-User is not present"
+        "(not logged in).",
+        "openid": "",
         "user:read": "Read access to Identity information.",
         "user:update": "Write access to Identity information.",
         "user:full": "Full access to Identity information.",
@@ -84,5 +106,14 @@ class Settings(BaseSettings):
 
     DATABASE_URL: Optional[AsyncPostgresDsn] = None
 
+    SENDGRID = SendgridSettings()
+    EMAIL = EmailSettings()
 
-settings = Settings()
+
+@lru_cache()
+def get_settings():
+    return Settings()
+
+
+# https://fastapi.tiangolo.com/advanced/settings/?h=settings#settings-in-a-dependency
+settings = get_settings()

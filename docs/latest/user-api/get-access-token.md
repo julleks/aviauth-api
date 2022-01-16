@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 4
 ---
 
 # Get access token
@@ -27,7 +27,7 @@ https://api.aviauth.com/latest/auth/token/
 
 ### Curl
 
-```
+```bash
 curl -X 'POST' \
   'https://api.aviauth.com/latest/auth/token' \
   -H 'accept: application/json' \

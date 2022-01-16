@@ -4,6 +4,16 @@ sidebar_position: 1
 
 # Register account
 
+Everything starts from a user.
+
+So, this endpoint is intended for user registration.
+
+:::caution
+Endpoint is available for **internal usage** only.
+:::
+
+If you are not an Aviauth developer, you may be interested in going further: [Get access token](./get-access-token.md).
+
 ### Request URL
 
 :::info POST
@@ -20,19 +30,19 @@ https://api.aviauth.com/latest/users/register/
   "email": "johndoe@example.com",
   "password": "tss!its-a-secret",
   "scope": "",
-  "client_id": "super-secret-client-id",
-  "client_secret": "and-even-more-secret-secret",
+  "client_id": "public-client-id",
+  "client_secret": "super-secret-secret",
 }
 ```
 
 ### Curl
 
-```
+```bash
 curl -X 'POST' \
   'https://api.aviauth.com/latest/users/register/' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/x-www-form-urlencoded' \
-  -d 'grant_type=password&email=user@example.com&password=password&scope=&client_id=client_id&client_secret=client_secret'
+  -d 'grant_type=password&email=johndoe@example.com&password=tss!its-a-secret&scope=&client_id=public-client-id&client_secret=super-secret-secret'
 ```
 
 ### Response
@@ -40,13 +50,17 @@ curl -X 'POST' \
 :::success 201
 ```json
 {
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "access_token": "eyJhbGciOiJIUzI1N...iIsInR5cCI6IkpXVCJ9",
   "token_type": "bearer",
-  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "refresh_token": "eyJhbGciOiJIUzI1...NiIsInR5cCI6IkpXVCJ9",
   "expires_in": 1800
 }
 ```
 :::
+
+
+In case of successful user registration, an introduction email with confirmation link will be sent
+to the provided email address.
 
 
 ### Common errors
@@ -69,6 +83,22 @@ curl -X 'POST' \
 
 Will be raised in case `client_id` and `client_secret` are not valid.
 
+:::warning 422
+```json
+{
+  "detail": [
+    {
+      "loc": [
+        "body",
+        "email"
+      ],
+      "msg": "value is not a valid email address",
+      "type": "value_error.email"
+    }
+  ]
+}
+```
+:::
 
 ### What do we keep underneath
 
@@ -78,20 +108,6 @@ Will be raised in case `client_id` and `client_secret` are not valid.
   "sub": "dda1757c-1947-490b-8cb3-b3295ae5366e",
   "scope": "user:read user:update user:full applications:read applications:create applications:update applications:full",
   "exp": 1640939869
-}
-```
-:::
-
-:::info refresh_token
-```json
-{
-  "exp": 1640975054,
-  "iat": 1640939054,
-  "scope": "user:read user:update user:full applications:read applications:create applications:update applications:full",
-  "sub": "54648e29-5e6c-4fc8-b4a6-d514acb98c59",
-  "aud": ["https://api.aviauth.com/latest/auth/token"],
-  "iss": "https://api.aviauth.com",
-  "azp": "super-secret-client-id"
 }
 ```
 :::

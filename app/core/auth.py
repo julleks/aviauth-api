@@ -2,6 +2,7 @@ from typing import Optional
 
 from fastapi.param_functions import Form
 from fastapi.security import OAuth2PasswordBearer
+from pydantic import EmailStr
 
 from app.core.config import settings
 
@@ -17,8 +18,8 @@ oauth2_scheme = OAuth2PasswordBearer(
 class OAuth2EmailPasswordRequestForm:
     def __init__(
         self,
-        grant_type: str = Form(None, regex="password"),
-        email: str = Form(...),
+        grant_type: str = Form("password", regex="password"),
+        email: EmailStr = Form(...),
         password: str = Form(...),
         scope: str = Form(""),
         client_id: Optional[str] = Form(None),

@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 # Get profile info
@@ -14,7 +14,7 @@ https://api.aviauth.com/latest/users/profile/
 
 ### Curl
 
-```
+```bash
 curl -X 'GET' \
   'https://api.aviauth.com/latest/users/profile' \
   -H 'accept: application/json' \

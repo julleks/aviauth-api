@@ -65,15 +65,16 @@ http://127.0.0.1:8000/latest/openapi.json
 ### List of the environmental variables used in project:
 
 
-| Variable               | Default value     | Description                                                                         |
-|------------------------|-------------------|-------------------------------------------------------------------------------------|
-| POSTGRES_DB            | aviauth           |                                                                                     |
-| POSTGRES_HOST          | 127.0.0.1         |                                                                                     |
-| POSTGRES_PORT          | 5432              |                                                                                     |
-| POSTGRES_USER          |                   |                                                                                     |
-| POSTGRES_PASSWORD      |                   |                                                                                     |
-| DEBUG                  | False             | If set to True, logs to console SQL queries and disable HTTPSRedirectMiddleware.    |
-| SECRET_KEY             |                   |                                                                                     |
+| Variable          | Default value     | Description                                                                         |
+|-------------------|-------------------|-------------------------------------------------------------------------------------|
+| POSTGRES_DB       | aviauth           |                                                                                     |
+| POSTGRES_HOST     | 127.0.0.1         |                                                                                     |
+| POSTGRES_PORT     | 5432              |                                                                                     |
+| POSTGRES_USER     |                   |                                                                                     |
+| POSTGRES_PASSWORD |                   |                                                                                     |
+| DEBUG             | False             | If set to True, logs to console SQL queries and disable HTTPSRedirectMiddleware.    |
+| SECRET_KEY        |                   |                                                                                     |
+| SENDGRID_API_KEY  |                   |                                                                                     |
 
 
 ### List of the environmental variables used for deployment:

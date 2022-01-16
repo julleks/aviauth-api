@@ -45,15 +45,13 @@ class CRUDAccessToken(CRUDBase):
     ) -> AccessTokenRead:
         application = await applications.get(session, client_id)
 
-        if not (application and application.verify_secret(client_secret)):
+        if not (application and application.check_secret(client_secret)):
             await session.rollback()
             raise InvalidClientCredentials
 
         refresh_token = await refresh_tokens.create(
             session,
-            RefreshToken(
-                user_id=user_id, scope=scope, application_id=application.client_id
-            ),
+            RefreshToken(user_id=user_id, scope=scope, client_id=application.client_id),
         )
 
         access_token = await self.create(
@@ -61,8 +59,8 @@ class CRUDAccessToken(CRUDBase):
             AccessToken(
                 user_id=user_id,
                 scope=scope,
-                refresh_token=refresh_token.token,
-                application_id=application.client_id,
+                refresh_token=refresh_token.id,
+                client_id=application.client_id,
             ),
         )
 

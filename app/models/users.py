@@ -1,10 +1,11 @@
 from typing import List, Optional
 from uuid import UUID, uuid4
 
+from pydantic import EmailStr
 from sqlmodel import Column, DateTime, Field, Relationship
 
 from app.core.datetime import datetime
-from app.core.security import get_password_hash, verify_password
+from app.core.security import check_password, get_password_hash
 from app.packages.sqlmodel import SQLModel
 
 __all__ = [
@@ -16,7 +17,8 @@ __all__ = [
 
 
 class UserBase(SQLModel):
-    email: str = Field(max_length=64, sa_column_kwargs={"unique": True})
+    # TODO: add check constraint for email
+    email: EmailStr = Field(max_length=64, sa_column_kwargs={"unique": True})
 
     @property
     def is_authenticated(self) -> bool:
@@ -27,7 +29,7 @@ class UserBase(SQLModel):
         return self.email
 
     @staticmethod
-    def get_password_hash(password):
+    def get_password_hash(password: str) -> str:
         return get_password_hash(password)
 
 
@@ -44,24 +46,40 @@ class UserRead(UserBase):
     first_name: Optional[str] = Field(max_length=64, default="", nullable=False)
     last_name: Optional[str] = Field(max_length=64, default="", nullable=False)
 
+    @property
+    def full_name(self):
+        return " ".join([self.first_name, self.last_name])
+
 
 class User(UserRead, table=True):
     password: str = Field(max_length=255, index=False, nullable=True)
-    registered_at: Optional[datetime] = Field(
+    registered_at: datetime = Field(
         sa_column=Column(DateTime(timezone=True)), default_factory=datetime.now
     )
     deactivated_at: Optional[datetime] = Field(
-        sa_column=Column(DateTime(timezone=True)), nullable=False
+        sa_column=Column(DateTime(timezone=True)), nullable=True
+    )
+    verified_at: Optional[datetime] = Field(
+        sa_column=Column(DateTime(timezone=True)), nullable=True
     )
     access_tokens: Optional[List["AccessToken"]] = Relationship(back_populates="user")
     refresh_tokens: Optional[List["RefreshToken"]] = Relationship(back_populates="user")
 
     @property
+    def is_verified(self) -> bool:
+        return bool(self.verified_at)
+
+    @property
     def is_active(self) -> bool:
         return bool(not self.deactivated_at)
 
-    def verify_password(self, password: str) -> bool:
-        return verify_password(password, self.password)
+    def verify_email(self):
+        print(self.is_verified)
+        if not self.is_verified:
+            self.verified_at = datetime.now()
+
+    def check_password(self, password: str) -> bool:
+        return check_password(password, self.password)
 
 
 class UserCreate(UserBase):

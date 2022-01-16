@@ -26,7 +26,7 @@ async def login_for_access_token(
 
     user = await users.get_by_email(session, form_data.username)
 
-    if not (user and user.verify_password(form_data.password)):
+    if not (user and user.check_password(form_data.password)):
         raise InvalidUserCredentials()
 
     scope = " ".join(form_data.scopes)
@@ -34,3 +34,6 @@ async def login_for_access_token(
     return await access_tokens.create_access_token(
         session, form_data.client_id, form_data.client_secret, user.id, scope
     )
+
+
+# TODO: add authorize endpoint

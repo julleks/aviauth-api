@@ -23,7 +23,7 @@ https://api.aviauth.com/latest/applications/register/
 
 ### Curl
 
-```
+```bash
 curl -X 'POST' \
   'http://127.0.0.1:8000/latest/applications/register' \
   -H 'accept: application/json' \
