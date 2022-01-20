@@ -24,7 +24,7 @@ async def login_for_access_token(
     session: AsyncSession = Depends(get_session),
 ) -> AccessTokenRead:
 
-    user = await users.get_by_username(session, form_data.username)
+    user = await users.get_by_email(session, form_data.username)
 
     if not (user and user.verify_password(form_data.password)):
         raise InvalidUserCredentials()

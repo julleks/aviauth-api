@@ -23,14 +23,16 @@ class BasePermission:
 
 class IsAuthenticated(BasePermission):
     error_message = "Not authenticated"
-    scope = ""
+    scopes = []
 
     def has_required_permissions(self, request: Request) -> bool:
         if not request.user.is_authenticated:
             self.status_code = status.HTTP_401_UNAUTHORIZED
             return False
 
-        if self.scope not in request.auth.scopes:
+        if self.scopes and not any(
+            scope in request.auth.scopes for scope in self.scopes
+        ):
             return False
 
         return True

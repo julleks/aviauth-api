@@ -4,4 +4,4 @@ __all__ = ["ReadUserPermission"]
 
 
 class ReadUserPermission(IsAuthenticated):
-    scope = "user:read"
+    scopes = ["user:read", "user:full"]

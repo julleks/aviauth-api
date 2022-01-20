@@ -10,11 +10,9 @@ __all__ = ["users"]
 
 
 class CRUDUser(CRUDBase):
-    async def get_by_username(
-        self, db: AsyncSession, username: str
-    ) -> Optional[ModelType]:
+    async def get_by_email(self, db: AsyncSession, email: str) -> Optional[ModelType]:
 
-        statement = select(self.model).where(self.model.username == username)
+        statement = select(self.model).where(self.model.email == email)
         results = await db.execute(statement)
 
         return results.scalar_one_or_none()

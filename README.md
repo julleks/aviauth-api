@@ -76,6 +76,17 @@ http://127.0.0.1:8000/latest/openapi.json
 | SECRET_KEY             |                   |                                                                                     |
 
 
+### List of the environmental variables used for deployment:
+
+| Variable              | Environment | Description                                           |
+|-----------------------|-------------|-------------------------------------------------------|
+| AWS_S3_BUCKET         | docs        | S3 bucket name for docs site sync.                    |
+| DISTRIBUTION          | docs        | CloudFront distribution ID for cache invalidation.    |
+| AWS_ACCESS_KEY_ID     |             | Access key with S3 and CloudFront access permissions. |
+| AWS_SECRET_ACCESS_KEY |             |                                                       |
+| CODECOV_TOKEN         |             | Required for private repositories only.               |
+
+
 # Hints & Tips
 
 ### Commits
@@ -122,12 +133,13 @@ if you are introducing breaking changes
 * Update `V{current_major}_VERSION` parameter in [config](app/core/config.py)
 according to the releasing one or create a new one if `BREAKING CHANGES`
 took place
+* Update documentation according to the latest changes.
 * Check that `LATEST_VERSION` is pointing to the correct major version parameter in
 [config](app/core/config.py)
 * After `master` branch is up-to-date, create a release on GitHub including the
 latest release notes
 
-###Alembic
+### Alembic
 
 Initialize Alembic:
 ```shell

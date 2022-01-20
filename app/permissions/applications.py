@@ -1,7 +1,7 @@
 from app.permissions.base import IsAuthenticated
 
-__all__ = ["WriteApplicationsPermission"]
+__all__ = ["CreateApplicationsPermission"]
 
 
-class WriteApplicationsPermission(IsAuthenticated):
-    scope = "applications:write"
+class CreateApplicationsPermission(IsAuthenticated):
+    scopes = ["applications:create", "applications:full"]

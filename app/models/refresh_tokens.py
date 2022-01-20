@@ -2,7 +2,7 @@ from typing import Optional
 from uuid import UUID
 
 from jose import jwt
-from sqlmodel import Column, DateTime, Field
+from sqlmodel import Column, DateTime, Field, Relationship
 
 from app.core.config import settings
 from app.core.datetime import datetime, timedelta
@@ -20,6 +20,7 @@ class RefreshToken(SQLModel, table=True):
     )
     # TODO: Pass ondelete="CASCADE" to ForeignKey object when available
     user_id: UUID = Field(foreign_key="user.id")
+    user: "User" = Relationship(back_populates="refresh_tokens")
 
     # TODO: Pass ondelete="CASCADE" to ForeignKey object when available
     application_id: Optional[str] = Field(
