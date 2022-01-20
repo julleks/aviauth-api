@@ -162,6 +162,23 @@ Downgrade 1 revision:
 alembic downgrade -1
 ```
 
+### Terraform
+
+Plan changes
+```shell
+./terraform.sh aws-profile-name plan
+```
+
+Apply changes
+```shell
+./terraform.sh aws-profile-name apply
+```
+
+Import to state
+```shell
+./import.sh aws-profile-name module.module-name module-id
+```
+
 ### Security
 
 Generate random secret key:
