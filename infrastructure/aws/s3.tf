@@ -22,16 +22,13 @@ resource "aws_s3_bucket" "www-docs-bucket" {
   }
 }
 
-resource "aws_s3_bucket" "logs-docs-bucket" {
-  for_each = var.environments
-
-  bucket = "logs.${each.value.docs_domain_name}"
+resource "aws_s3_bucket" "logs-bucket" {
+  bucket = "${var.project_name}-logs"
 
   policy = templatefile(
     "policies/s3-bucket-policy-logs.tpl",
     {
-      bucket_name = "logs.${each.value.docs_domain_name}",
-      bucket_logging_prefix = each.value.cloudfront-logs-prefix-docs,
+      bucket_name = "${var.project_name}-logs",
       account_id = var.account_id
     }
   )

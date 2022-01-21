@@ -4,11 +4,12 @@ variable "region" {
 
 variable "account_id" {}
 
+variable "project_name" {}
+
 variable "domain_name" {}
 
 variable "environments" {
   type = map(object({
     docs_domain_name = string
-    cloudfront-logs-prefix-docs = string
   }))
 }

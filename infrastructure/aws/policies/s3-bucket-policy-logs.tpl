@@ -10,7 +10,7 @@
             "Action": [
                 "s3:PutObject"
             ],
-            "Resource": "arn:aws:s3:::${bucket_name}/${bucket_logging_prefix}*",
+            "Resource": "arn:aws:s3:::${bucket_name}/*",
             "Condition": {
                 "ArnLike": {
                     "aws:SourceARN": "arn:aws:s3:::${bucket_name}"

@@ -53,9 +53,9 @@ resource "aws_cloudfront_distribution" "docs-cloudfront" {
   }
 
   logging_config {
-    bucket          = aws_s3_bucket.logs-docs-bucket[each.key].bucket_domain_name
+    bucket = aws_s3_bucket.logs-bucket.bucket_domain_name
     include_cookies = false
-    prefix = each.value.cloudfront-logs-prefix-docs
+    prefix = "docs-${each.key}"
   }
 }
 
