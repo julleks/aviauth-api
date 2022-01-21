@@ -164,23 +164,11 @@ alembic downgrade -1
 
 ### Terraform
 
-Plan changes
-```shell
-cd infrastructure/aws
-./terraform.sh aws-profile-name plan
-```
+See the [readme](infrastructure/README.md).
 
-Apply changes
-```shell
-cd infrastructure/aws
-./terraform.sh aws-profile-name apply
-```
+### Docusaurus
 
-Import to state
-```shell
-cd infrastructure/aws
-./import.sh aws-profile-name module.module-name module-id
-```
+See the [readme](docs/README.md).
 
 ### Security
 

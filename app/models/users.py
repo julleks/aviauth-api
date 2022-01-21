@@ -61,7 +61,7 @@ class User(UserRead, table=True):
     verified_at: Optional[datetime] = Field(
         sa_column=Column(DateTime(timezone=True)), nullable=True
     )
-    is_superuser: Optional[bool] = Field(default=False)
+    is_superuser: Optional[bool] = Field(default=False, nullable=False)
 
     access_tokens: Optional[List["AccessToken"]] = Relationship(back_populates="user")
     refresh_tokens: Optional[List["RefreshToken"]] = Relationship(back_populates="user")

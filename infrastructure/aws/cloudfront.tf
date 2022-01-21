@@ -1,6 +1,8 @@
 resource "aws_cloudfront_distribution" "docs-cloudfront" {
+  for_each = var.environments
+
   enabled = true
-  aliases = [var.docs_domain_name]
+  aliases = [each.value.docs_domain_name]
   http_version = "http2"
   price_class  = "PriceClass_All"
 
@@ -8,8 +10,8 @@ resource "aws_cloudfront_distribution" "docs-cloudfront" {
   is_ipv6_enabled = true
 
   origin {
-    origin_id = aws_s3_bucket.docs-bucket.bucket_regional_domain_name
-    domain_name = aws_s3_bucket.docs-bucket.bucket_regional_domain_name
+    origin_id = aws_s3_bucket.docs-bucket[each.key].bucket_regional_domain_name
+    domain_name = aws_s3_bucket.docs-bucket[each.key].bucket_regional_domain_name
     origin_path = ""
 
     connection_attempts = 3
@@ -39,7 +41,7 @@ resource "aws_cloudfront_distribution" "docs-cloudfront" {
 
     cache_policy_id = "658327ea-f89d-4fab-a63d-7e88639e58f6"
 
-    target_origin_id = aws_s3_bucket.docs-bucket.bucket_regional_domain_name
+    target_origin_id = aws_s3_bucket.docs-bucket[each.key].bucket_regional_domain_name
     viewer_protocol_policy = "redirect-to-https"
     compress = true
   }
@@ -51,7 +53,7 @@ resource "aws_cloudfront_distribution" "docs-cloudfront" {
   }
 
   logging_config {
-    bucket          = aws_s3_bucket.logs-docs-bucket.bucket_domain_name
+    bucket          = aws_s3_bucket.logs-docs-bucket[each.key].bucket_domain_name
     include_cookies = false
   }
 }

@@ -4,4 +4,8 @@ variable "region" {
 
 variable "domain_name" {}
 
-variable "docs_domain_name" {}
+variable "environments" {
+  type = map(object({
+    docs_domain_name = string
+  }))
+}

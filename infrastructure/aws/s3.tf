@@ -1,25 +1,31 @@
 resource "aws_s3_bucket" "docs-bucket" {
-  bucket = var.docs_domain_name
+  for_each = var.environments
+
+  bucket = each.value.docs_domain_name
 
   policy = templatefile(
     "policies/s3-policy.tpl",
     {
-      bucket_name = var.docs_domain_name,
+      bucket_name = each.value.docs_domain_name,
       origin_access_identity = aws_cloudfront_origin_access_identity.docs-cloudfront-identity.id
     }
   )
 }
 
 resource "aws_s3_bucket" "www-docs-bucket" {
-  bucket = "www.${var.docs_domain_name}"
+  for_each = var.environments
+
+  bucket = "www.${each.value.docs_domain_name}"
 
   website {
-    redirect_all_requests_to = "https://${var.docs_domain_name}"
+    redirect_all_requests_to = "https://${each.value.docs_domain_name}"
   }
 }
 
 resource "aws_s3_bucket" "logs-docs-bucket" {
-  bucket = "logs.${var.docs_domain_name}"
+  for_each = var.environments
+
+  bucket = "logs.${each.value.docs_domain_name}"
 
   grant {
     id = "c4c1ede66af53448b93c283ce9448c4ba468c9432aa01d700d3878632f77d2d0"
