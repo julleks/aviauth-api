@@ -1,7 +1,6 @@
 from typing import List, Optional
 from uuid import UUID, uuid4
 
-from pydantic import EmailStr
 from sqlmodel import Column, DateTime, Field, Relationship
 
 from app.core.datetime import datetime
@@ -18,7 +17,7 @@ __all__ = [
 
 class UserBase(SQLModel):
     # TODO: add check constraint for email
-    email: EmailStr = Field(max_length=64, sa_column_kwargs={"unique": True})
+    email: str = Field(max_length=64, sa_column_kwargs={"unique": True})
 
     @property
     def is_authenticated(self) -> bool:
@@ -62,6 +61,8 @@ class User(UserRead, table=True):
     verified_at: Optional[datetime] = Field(
         sa_column=Column(DateTime(timezone=True)), nullable=True
     )
+    is_superuser: Optional[bool] = Field(default=False)
+
     access_tokens: Optional[List["AccessToken"]] = Relationship(back_populates="user")
     refresh_tokens: Optional[List["RefreshToken"]] = Relationship(back_populates="user")
 
@@ -74,7 +75,6 @@ class User(UserRead, table=True):
         return bool(not self.deactivated_at)
 
     def verify_email(self):
-        print(self.is_verified)
         if not self.is_verified:
             self.verified_at = datetime.now()
 

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export DEBUG=True
+
 # Apply migrations
 alembic upgrade head
 

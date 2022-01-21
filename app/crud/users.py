@@ -25,5 +25,14 @@ class CRUDUser(CRUDBase):
 
         return user
 
+    async def create_superuser(self, db: AsyncSession, user: User) -> ModelType:
+        user = await self.create(db, user)
+        user.is_superuser = True
+
+        db.add(user)
+        await db.flush()
+
+        return user
+
 
 users = CRUDUser(User)

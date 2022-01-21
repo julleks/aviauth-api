@@ -17,12 +17,6 @@ app = FastAPI(title=settings.PROJECT_NAME)
 app.include_router(api_router)
 
 
-@app.on_event("startup")
-async def on_startup():
-    configure_structlog()
-    await init_db()
-
-
 app = VersionedFastAPI(
     app=app,
     default_version=(0, 1),
@@ -31,6 +25,13 @@ app = VersionedFastAPI(
     enable_latest=True,
     version=".".join([str(v) for v in settings.LATEST_VERSION]),
 )
+
+
+@app.on_event("startup")
+async def on_startup():
+    configure_structlog()
+    await init_db()
+
 
 app.add_middleware(AuthenticationMiddleware, backend=oauth2_backend)
 
