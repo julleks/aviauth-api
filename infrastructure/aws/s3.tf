@@ -21,7 +21,6 @@ resource "aws_s3_bucket" "www-docs-bucket" {
 resource "aws_s3_bucket" "logs-docs-bucket" {
   bucket = "logs.${var.docs_domain_name}"
 
-  # TODO: investigate grants
   grant {
     id = "c4c1ede66af53448b93c283ce9448c4ba468c9432aa01d700d3878632f77d2d0"
     permissions = [

@@ -1,49 +1,69 @@
-#module "zones" {
-#  source  = "terraform-aws-modules/route53/aws//modules/zones"
-#  version = "~> 2.0"
-#
-#  zones = {
-#    "terraform-aws-modules-example.com" = {
-#      comment = "terraform-aws-modules-examples.com (production)"
-#      tags = {
-#        env = "production"
-#      }
-#    }
-#
-#    "myapp.com" = {
-#      comment = "myapp.com"
-#    }
-#  }
-#
-#  tags = {
-#    ManagedBy = "Terraform"
-#  }
-#}
-#
-#module "records" {
-#  source  = "terraform-aws-modules/route53/aws//modules/records"
-#  version = "~> 2.0"
-#
-#  zone_name = keys(module.zones.route53_zone_zone_id)[0]
-#
-#  records = [
-#    {
-#      name    = "apigateway1"
-#      type    = "A"
-#      alias   = {
-#        name    = "d-10qxlbvagl.execute-api.eu-west-1.amazonaws.com"
-#        zone_id = "ZLY8HYME6SFAD"
-#      }
-#    },
-#    {
-#      name    = ""
-#      type    = "A"
-#      ttl     = 3600
-#      records = [
-#        "10.10.10.10",
-#      ]
-#    },
-#  ]
-#
-#  depends_on = [module.zones]
-#}
+resource "aws_route53_zone" "primary" {
+  name = var.domain_name
+}
+
+resource "aws_route53_record" "ns-record" {
+  name = var.domain_name
+  type = "NS"
+  zone_id = aws_route53_zone.primary.zone_id
+  records = [
+    aws_route53_zone.primary.name_servers[0],
+    aws_route53_zone.primary.name_servers[1],
+    aws_route53_zone.primary.name_servers[2],
+    aws_route53_zone.primary.name_servers[3],
+  ]
+  ttl = 172800
+}
+
+resource "aws_route53_record" "soa-record" {
+  name = var.domain_name
+  type = "SOA"
+  zone_id = aws_route53_zone.primary.zone_id
+  records = [
+    "ns-1304.awsdns-35.org. awsdns-hostmaster.amazon.com. 1 7200 900 1209600 86400",
+  ]
+  ttl = 900
+}
+
+resource "aws_route53_record" "certificate-cname-record" {
+  for_each = {
+    for dvo in aws_acm_certificate.certificate.domain_validation_options : dvo.domain_name => {
+      name   = dvo.resource_record_name
+      record = dvo.resource_record_value
+      type   = dvo.resource_record_type
+    }
+  }
+
+  allow_overwrite = true
+  name = each.value.name
+  type = each.value.type
+  zone_id = aws_route53_zone.primary.zone_id
+  records = [
+    each.value.record
+  ]
+  ttl = 60
+}
+
+resource "aws_route53_record" "docs-a-record" {
+  name = var.docs_domain_name
+  type = "A"
+  zone_id = aws_route53_zone.primary.zone_id
+
+  alias {
+    evaluate_target_health = false
+    name = aws_cloudfront_distribution.docs-cloudfront.domain_name
+    zone_id = aws_cloudfront_distribution.docs-cloudfront.hosted_zone_id
+  }
+}
+
+resource "aws_route53_record" "www-docs-a-record" {
+  name = "www.${var.docs_domain_name}"
+  type = "A"
+  zone_id = aws_route53_zone.primary.zone_id
+
+  alias {
+    evaluate_target_health = false
+    name = "s3-website-eu-west-1.amazonaws.com"
+    zone_id = aws_s3_bucket.www-docs-bucket.hosted_zone_id
+  }
+}

@@ -1,8 +1,7 @@
 resource "aws_cloudfront_distribution" "docs-cloudfront" {
   enabled = true
-  aliases      = [var.docs_domain_name]
+  aliases = [var.docs_domain_name]
   http_version = "http2"
-#  price_class  = "PriceClass_100" TODO: investigate plans
   price_class  = "PriceClass_All"
 
   default_root_object = "index.html"
@@ -30,7 +29,7 @@ resource "aws_cloudfront_distribution" "docs-cloudfront" {
   viewer_certificate {
     minimum_protocol_version = "TLSv1.2_2021"
     cloudfront_default_certificate = false
-    acm_certificate_arn = var.certificate_arn
+    acm_certificate_arn = aws_acm_certificate.certificate.arn
     ssl_support_method  = "sni-only"
   }
 

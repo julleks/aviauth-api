@@ -166,16 +166,19 @@ alembic downgrade -1
 
 Plan changes
 ```shell
+cd infrastructure/aws
 ./terraform.sh aws-profile-name plan
 ```
 
 Apply changes
 ```shell
+cd infrastructure/aws
 ./terraform.sh aws-profile-name apply
 ```
 
 Import to state
 ```shell
+cd infrastructure/aws
 ./import.sh aws-profile-name module.module-name module-id
 ```
 

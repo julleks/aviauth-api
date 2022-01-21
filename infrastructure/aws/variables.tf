@@ -5,5 +5,3 @@ variable "region" {
 variable "domain_name" {}
 
 variable "docs_domain_name" {}
-
-variable "certificate_arn" {}

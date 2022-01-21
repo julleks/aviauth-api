@@ -9,6 +9,9 @@ __pycache__/
 # JetBrains folders
 .idea/
 
+# Terraform local files
+*.terraform/
+
 # C extensions
 *.so
 
