@@ -1,6 +1,6 @@
 project_name = "aviauth"
 
-domain_name = "aviauth.com"
+root_domain_name = "aviauth.com"
 
 account_id = "967436198532"
 

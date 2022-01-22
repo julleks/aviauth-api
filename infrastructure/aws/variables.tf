@@ -6,7 +6,7 @@ variable "account_id" {}
 
 variable "project_name" {}
 
-variable "domain_name" {}
+variable "root_domain_name" {}
 
 variable "environments" {
   type = map(object({
