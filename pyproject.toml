@@ -7,7 +7,7 @@ license = "GNU General Public License v3.0"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-fastapi = "^0.72.0"
+fastapi = "^0.75.2"
 uvicorn = "^0.17.0"
 toml = "^0.10.2"
 SQLAlchemy = "^1.4.31"
